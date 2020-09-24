@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody playerRB;
     public Animator playerAnim;
+
+    public GameObject camRig;
     
 
     // Start is called before the first frame update
@@ -18,28 +20,45 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerGroundRaycast();
+        //Besoin du Update normal, pour le getButtonDown
         Jump();
+        print(playerVelocityMod);
+
     }
 
     private void FixedUpdate()
     {
+        
         Movement();
-       
+
+
     }
 
+ 
 
     [Header("Mouvement du Joueur")]
-    [SerializeField]
     Vector3 playerVelocityMod;
     float persoAngleY = 0;
+
     /**
      * 
      * 
      */
+    Vector3 moveDirection;
     private void Movement()
     {
-        playerRB.velocity = new Vector3(Input.GetAxis("Horizontal") * playerVelocityMod.x, playerVelocityMod.y, Input.GetAxis("Vertical") * playerVelocityMod.z);
+        
+
+        //persoAngleY = playerRB.rotation.eulerAngles.y * Mathf.Deg2Rad;
+
+        //Wooow le calcul qui me pete le cerveau
+        moveDirection = (Input.GetAxis("Vertical") * camRig.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * camRig.transform.right * playerVelocityMod.x);
+
+        //playerRB.velocity =  new Vector3(moveDirection.x,0,moveDirection.z);
+        playerRB.AddForce(moveDirection, ForceMode.Force);
+        
+
+       
 
         if (playerRB.velocity.x == 0 && playerRB.velocity.z == 0)
         {
@@ -48,38 +67,53 @@ public class PlayerController : MonoBehaviour
         else
         {
             persoAngleY = Mathf.Rad2Deg * Mathf.Atan2(playerRB.velocity.x, playerRB.velocity.z);
-            print(persoAngleY);
+           
 
             playerRB.rotation = Quaternion.Euler(0, persoAngleY, 0);
 
             playerAnim.SetBool("isRunning", true);
 
-            //transform.forward
+         
+           
         }
+
 
         
 
-
     }
 
-
+    float vitesseDeChute = 0;
+    public float vitesseDeChuteMax;
     public bool isGrounded;
+    public float jumpPower;
     /**
-    * 
+    * Fonction gérant le saut : force du saut, input et quand est-ce que l'on peut sauter
     * 
     */
+
     void Jump()
     {
+        
+
         if (isGrounded)
         {
             //Peut sauter
             //Saut
+            if (Input.GetButtonDown("Jump"))
+            {
+                print("pressed A");
+               
+
+                playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
+
+
+            }
+           
         }
         else
         {
             //Ne peut pas sauter
             //Ne Touche rien
-            isGrounded = false;
 
             vitesseDeChute += Time.deltaTime / 2;
 
@@ -89,45 +123,41 @@ public class PlayerController : MonoBehaviour
             }
 
             playerRB.AddForce(new Vector3(0, -vitesseDeChuteMax, 0));
+
+
         }
+
+        
 
         
         
     }
 
-
-    public float vitesseDeChuteMax;
-    float vitesseDeChute = 0;
-    void PlayerGroundRaycast()
+    private void OnCollisionEnter(Collision colEnter)
     {
-
-        RaycastHit enDessous;
-
-        if (Physics.Raycast(gameObject.transform.position,Vector3.down,out enDessous, 0.1f))
-        {
-
-
-            if (enDessous.collider.gameObject.layer == 8)
-            {
-
-                //La couche #8 est le sol
-                //Touche le sol (peut sauter)
-                isGrounded = true;
-                vitesseDeChute = 0;
-
-            }
-
-
-        }
-        else
-        {
-            isGrounded = false;
-        }
-            //Touche qqch
        
+        if (colEnter.collider.gameObject.layer == 8)
+        {
+            // La couche #8 est le sol
+            //Touche le sol (peut sauter)
+            isGrounded = true;
+            vitesseDeChute = 0;
+            playerVelocityMod = new Vector3(10, 0, 10);
 
-        //Visualiser le raycast
-        Debug.DrawLine(gameObject.transform.position, gameObject.transform.position + new Vector3(0, -0.1f, 0));
+        }
+       
+    }
+
+    private void OnCollisionExit(Collision colExit)
+    {
+        if (colExit.collider.gameObject.layer == 8)
+        {
+            // La couche #8 est le sol
+            //Touche le sol (peut sauter)
+            isGrounded = false;
+            playerVelocityMod = new Vector3(5, 0, 5);
+
+        }
     }
 
     void OnAnimatorIK()
