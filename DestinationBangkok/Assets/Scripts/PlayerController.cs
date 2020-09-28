@@ -54,8 +54,12 @@ public class PlayerController : MonoBehaviour
         //Wooow le calcul qui me pete le cerveau
         moveDirection = (Input.GetAxis("Vertical") * camRig.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * camRig.transform.right * playerVelocityMod.x);
 
-        //playerRB.velocity =  new Vector3(moveDirection.x,0,moveDirection.z);
-        playerRB.AddForce(moveDirection, ForceMode.Force);
+        var newVelocity = playerRB.velocity;
+        newVelocity.x = moveDirection.x;
+        newVelocity.z = moveDirection.z;
+
+        playerRB.velocity = newVelocity;
+        //playerRB.AddRelativeForce(moveDirection, ForceMode.Force);
         
 
        
