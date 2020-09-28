@@ -47,9 +47,6 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
     private void Movement()
     {
-        
-
-        //persoAngleY = playerRB.rotation.eulerAngles.y * Mathf.Deg2Rad;
 
         //Wooow le calcul qui me pete le cerveau
         moveDirection = (Input.GetAxis("Vertical") * camRig.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * camRig.transform.right * playerVelocityMod.x);
