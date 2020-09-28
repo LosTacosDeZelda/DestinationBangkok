@@ -107,6 +107,8 @@ public class PlayerController : MonoBehaviour
 
                 playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
 
+                playerAnim.SetTrigger("Jumps");
+
 
             }
            
