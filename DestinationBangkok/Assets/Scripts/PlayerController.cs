@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public Animator playerAnim;
 
     public GameObject camRig;
-    
+
+    bool raycastTouched = false;
+    public bool closeToGround;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,10 @@ public class PlayerController : MonoBehaviour
     {
         //Besoin du Update normal, pour le getButtonDown
         Jump();
-        print(playerVelocityMod);
+
+        
+        
+        
 
     }
 
@@ -30,6 +35,26 @@ public class PlayerController : MonoBehaviour
     {
         
         Movement();
+
+        RaycastHit playerFeet;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out playerFeet, 5))
+        {
+            print("Raycast hit :" + playerFeet.collider.gameObject.layer);
+
+            closeToGround = true;
+            if (playerAnim.GetBool("CloseToGround") == false && !isGrounded && playerRB.velocity.y < 0)
+            {
+                playerAnim.SetBool("CloseToGround", true);
+            }
+
+        }
+        else
+        {
+            closeToGround = false;
+        }
+
+        Debug.DrawLine(transform.position, transform.position + (Vector3.down * 5), Color.red);
 
 
     }
@@ -48,6 +73,15 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
 
+        if (playerRB.velocity.y < 5)
+        {
+            if (playerAnim.GetBool("isFalling") == false)
+            {
+                playerAnim.SetBool("isFalling", true);
+            }
+
+        }
+
         //Wooow le calcul qui me pete le cerveau
         moveDirection = (Input.GetAxis("Vertical") * camRig.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * camRig.transform.right * playerVelocityMod.x);
 
@@ -56,10 +90,6 @@ public class PlayerController : MonoBehaviour
         newVelocity.z = moveDirection.z;
 
         playerRB.velocity = newVelocity;
-        //playerRB.AddRelativeForce(moveDirection, ForceMode.Force);
-        
-
-       
 
         if (playerRB.velocity.x == 0 && playerRB.velocity.z == 0)
         {
@@ -98,6 +128,11 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
+
+            raycastTouched = false;
+            playerAnim.SetBool("isFalling", false);
+            playerAnim.SetBool("CloseToGround", false);
+
             //Peut sauter
             //Saut
             if (Input.GetButtonDown("Jump"))
@@ -108,26 +143,11 @@ public class PlayerController : MonoBehaviour
                 playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
 
                 playerAnim.SetTrigger("Jumps");
+                
 
 
             }
            
-        }
-        else
-        {
-            //Ne peut pas sauter
-            //Ne Touche rien
-
-            vitesseDeChute += Time.deltaTime / 2;
-
-            if (vitesseDeChute > vitesseDeChuteMax)
-            {
-                vitesseDeChute = vitesseDeChuteMax;
-            }
-
-            playerRB.AddForce(new Vector3(0, -vitesseDeChuteMax, 0));
-
-
         }
 
         
@@ -136,29 +156,29 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision colEnter)
+    private void OnTriggerEnter(Collider colEnter)
     {
        
-        if (colEnter.collider.gameObject.layer == 8)
+        if (colEnter.gameObject.layer == 8)
         {
             // La couche #8 est le sol
             //Touche le sol (peut sauter)
             isGrounded = true;
-            vitesseDeChute = 0;
+            
             playerVelocityMod = new Vector3(10, 0, 10);
 
         }
        
     }
 
-    private void OnCollisionExit(Collision colExit)
+    private void OnTriggerExit(Collider colExit)
     {
-        if (colExit.collider.gameObject.layer == 8)
+        if (colExit.gameObject.layer == 8)
         {
             // La couche #8 est le sol
             //Touche le sol (peut sauter)
             isGrounded = false;
-            playerVelocityMod = new Vector3(5, 0, 5);
+            playerVelocityMod = new Vector3(4, 0, 4);
 
         }
     }
