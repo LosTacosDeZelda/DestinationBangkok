@@ -9,18 +9,16 @@ public class CameraController : MonoBehaviour
     public Transform cible;
 
     //Cible vers laquelle la caméra va regarder
-    Transform cibleLookAt;
-    public Transform cibleNormale;
+   
+    public Transform cibleLookAt;
     //Vitesse à laquelle Lerp
     public float lerpSpeed;
 
-    public float distanceCamPres = -5;
-    public float distanceCamLoin = -10;
+    public float distanceCamPres = 5;
+    public float distanceCamLoin = 10;
     Vector3 dollyDir;
     public float distance;
 
-    public GameObject camPivot;
-    
 
     private void Awake()
     {
@@ -34,40 +32,19 @@ public class CameraController : MonoBehaviour
 
         
 
-        camPivot.transform.position = Vector3.Lerp(camPivot.transform.position, cible.transform.position, lerpSpeed);
+        transform.position = Vector3.Lerp(transform.position, cible.transform.position, lerpSpeed);
 
-        transform.LookAt(cibleNormale);
-
-        
-
-        
-
-       
-
-       // Debug.DrawLine(posRaycastCam.transform.position, posRaycastCam.transform.position + transform.forward * 10);
+        transform.LookAt(cibleLookAt);
     }
 
     private void Update()
     {
-        /*Vector3 cameraPositionDesiree = transform.parent.TransformPoint(dollyDir * distanceCamLoin);
-                RaycastHit hit;
 
-                if (Physics.Linecast(transform.parent.position, cameraPositionDesiree, out hit))
-                {
-                    distance = Mathf.Clamp(hit.distance, distanceCamPres, distanceCamLoin);
-                }
-                else
-                {
-                    distance = distanceCamLoin;
-                }
-
-                transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * distance, Time.deltaTime * 10);*/
-
-        Vector3 cameraPositionDesiree = transform.parent.TransformPoint(dollyDir * distanceCamLoin);
+        Vector3 cameraPositionDesiree = transform.TransformPoint(dollyDir * distanceCamLoin);
         RaycastHit camHit;
 
         //Caméra qui ne traverse pas les murs
-        if (Physics.Linecast(transform.parent.position, cameraPositionDesiree, out camHit))
+        if (Physics.Linecast(transform.position, transform.position + transform.forward * 7, out camHit))
         {
 
             distance = Mathf.Clamp(camHit.distance, distanceCamPres, distanceCamLoin);
@@ -80,7 +57,9 @@ public class CameraController : MonoBehaviour
 
         }
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * distance, Time.deltaTime * 10);
+        Debug.DrawLine(transform.position,transform.position + transform.forward * 7, Color.cyan);
+
+        //transform.position = Vector3.Lerp(transform.position, dollyDir * distance, Time.deltaTime * 10);
 
     }
 }

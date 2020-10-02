@@ -7,27 +7,23 @@ public class PlayerController : MonoBehaviour
     public Rigidbody playerRB;
     public Animator playerAnim;
 
-    public GameObject camRig;
+    public GameObject camPivot;
 
     bool raycastTouched = false;
     public bool closeToGround;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         playerAnim = gameObject.GetComponent<Animator>();
         playerRB = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         //Besoin du Update normal, pour le getButtonDown
         Jump();
-
-        
-        
-        
 
     }
 
@@ -82,8 +78,14 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        //En gros, on veut ignorer la rotation en X pour la direction du mouvement du joueur
+        Transform dirCam = camPivot.transform;
+        dirCam.rotation = Quaternion.Euler(0, camPivot.transform.eulerAngles.y, camPivot.transform.eulerAngles.z);
+
+        //dirCam.rotation = rotCam;
+
         //Wooow le calcul qui me pete le cerveau
-        moveDirection = (Input.GetAxis("Vertical") * camRig.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * camRig.transform.right * playerVelocityMod.x);
+        moveDirection = (Input.GetAxis("Vertical") * dirCam.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * dirCam.transform.right * playerVelocityMod.x);
 
         var newVelocity = playerRB.velocity;
         newVelocity.x = moveDirection.x;
