@@ -2039,9 +2039,9 @@ MonoBehaviour:
   playerAnim: {fileID: 7635726066119915157}
   camPivot: {fileID: 0}
   closeToGround: 0
-  vitesseDeChuteMax: 1
+  vitesseDeChute: 500
   isGrounded: 0
-  jumpPower: 7
+  jumpPower: 8
 --- !u!1 &3921334144448749991
 GameObject:
   m_ObjectHideFlags: 0

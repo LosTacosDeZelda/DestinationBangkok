@@ -115,8 +115,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    float vitesseDeChute = 0;
-    public float vitesseDeChuteMax;
+    public float vitesseDeChute;
+    //public float vitesseDeChuteMax;
     public bool isGrounded;
     public float jumpPower;
     /**
@@ -149,7 +149,11 @@ public class PlayerController : MonoBehaviour
 
 
             }
-           
+
+        }
+        else
+        {
+            playerRB.AddForce(new Vector3(0, -vitesseDeChute * Time.deltaTime, 0));
         }
 
         
