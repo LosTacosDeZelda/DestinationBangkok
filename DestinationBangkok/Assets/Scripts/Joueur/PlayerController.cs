@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject camPivot;
 
-    bool raycastTouched = false;
+    [Header("Gestion du Saut")]
     public bool closeToGround;
 
     
@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     {
         playerAnim = gameObject.GetComponent<Animator>();
         playerRB = gameObject.GetComponent<Rigidbody>();
+
+       
     }
 
   
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public float longueurRaycast;
     private void FixedUpdate()
     {
         
@@ -34,9 +37,8 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit playerFeet;
 
-        if (Physics.Raycast(transform.position, Vector3.down, out playerFeet, 5))
+        if (Physics.Raycast(transform.position, Vector3.down, out playerFeet, longueurRaycast))
         {
-            print("Raycast hit :" + playerFeet.collider.gameObject.layer);
 
             closeToGround = true;
             if (playerAnim.GetBool("CloseToGround") == false && !isGrounded && playerRB.velocity.y < 0)
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
             closeToGround = false;
         }
 
-        Debug.DrawLine(transform.position, transform.position + (Vector3.down * 5), Color.red);
+        Debug.DrawLine(transform.position, transform.position + (Vector3.down * longueurRaycast), Color.red);
 
 
     }
@@ -110,8 +112,11 @@ public class PlayerController : MonoBehaviour
            
         }
 
+        //Animation de course accélère progressivement
+        playerAnim.SetFloat("speedMultiplier", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
 
-        
+
+       
 
     }
 
@@ -131,7 +136,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
 
-            raycastTouched = false;
+           
             playerAnim.SetBool("isFalling", false);
             playerAnim.SetBool("CloseToGround", false);
 
