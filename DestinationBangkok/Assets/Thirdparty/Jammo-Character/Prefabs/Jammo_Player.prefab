@@ -2039,6 +2039,7 @@ MonoBehaviour:
   playerAnim: {fileID: 7635726066119915157}
   camPivot: {fileID: 0}
   closeToGround: 0
+  longueurRaycast: 10
   vitesseDeChute: 500
   isGrounded: 0
   jumpPower: 8
