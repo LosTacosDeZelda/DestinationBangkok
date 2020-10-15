@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
+
         playerAnim = gameObject.GetComponent<Animator>();
         playerRB = gameObject.GetComponent<Rigidbody>();
 
@@ -30,12 +31,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public float longueurRaycast;
+    public RaycastHit playerFeet;
     private void FixedUpdate()
     {
         
         Movement();
 
-        RaycastHit playerFeet;
+        
 
         if (Physics.Raycast(transform.position, Vector3.down, out playerFeet, longueurRaycast))
         {
