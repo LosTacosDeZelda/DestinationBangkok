@@ -184,6 +184,30 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    /*private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            // La couche #8 est le sol
+            //Touche le sol (peut sauter)
+            isGrounded = true;
+
+            playerVelocityMod = new Vector3(10, 0, 10);
+
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            // La couche #8 est le sol
+            //Touche le sol (peut sauter)
+            isGrounded = false;
+            playerVelocityMod = new Vector3(4, 0, 4);
+
+        }
+    }*/
+
     private void OnTriggerExit(Collider colExit)
     {
         if (colExit.gameObject.layer == 8)
@@ -191,7 +215,7 @@ public class PlayerController : MonoBehaviour
             // La couche #8 est le sol
             //Touche le sol (peut sauter)
             isGrounded = false;
-            playerVelocityMod = new Vector3(4, 0, 4);
+            playerVelocityMod = new Vector3(6, 0, 6);
 
         }
     }
