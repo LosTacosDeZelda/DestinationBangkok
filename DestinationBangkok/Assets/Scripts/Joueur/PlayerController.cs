@@ -147,16 +147,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 print("pressed A");
-               
 
+                
                 playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
 
                 playerAnim.SetTrigger("Jumps");
-                
 
 
             }
-
         }
         else
         {
@@ -169,6 +167,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
+
     private void OnTriggerEnter(Collider colEnter)
     {
        
@@ -180,8 +179,18 @@ public class PlayerController : MonoBehaviour
             
             playerVelocityMod = new Vector3(10, 0, 10);
 
+            //Adapter le collider à l'animation du perso
+            
+            
+
         }
        
+    }
+    
+    void resizeCollider()
+    {
+        gameObject.GetComponent<CapsuleCollider>().center = new Vector3(0, 0.62f, 0);
+        gameObject.GetComponent<CapsuleCollider>().height = 1.25f;
     }
 
     /*private void OnCollisionEnter(Collision collision)
@@ -213,9 +222,12 @@ public class PlayerController : MonoBehaviour
         if (colExit.gameObject.layer == 8)
         {
             // La couche #8 est le sol
-            //Touche le sol (peut sauter)
+            //Ne touche plus le sol (ne peut pas sauter)
             isGrounded = false;
             playerVelocityMod = new Vector3(6, 0, 6);
+
+            //Adapter le collider à l'animation du perso
+            
 
         }
     }
