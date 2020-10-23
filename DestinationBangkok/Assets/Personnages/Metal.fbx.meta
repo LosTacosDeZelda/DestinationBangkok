@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: aae3a3c198d7a114f8883437ca8b5f3c
+=======
+guid: 61c33ad740ea37a4fbdd8bc934816e00
+>>>>>>> Stashed changes
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -34,7 +38,11 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
+<<<<<<< Updated upstream
     globalScale: 1
+=======
+    globalScale: 6.8
+>>>>>>> Stashed changes
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -80,7 +88,11 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+<<<<<<< Updated upstream
     globalScale: 1
+=======
+    globalScale: 0.068
+>>>>>>> Stashed changes
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
