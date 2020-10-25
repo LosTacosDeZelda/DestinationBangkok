@@ -9,13 +9,25 @@ public class Piege : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(coroutineMonte());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(0, Time.deltaTime, 0);
+    }
+
+    IEnumerator coroutineMonte()
+    {
+        yield return new WaitForSeconds(1.0f);
+        yield return StartCoroutine(coroutineDescend());
+
+    }
+
+    IEnumerator coroutineDescend()
+    {
+        yield return new WaitForSeconds(1.0f);
     }
 
     private void OnCollisionEnter(Collision infoCollision)
