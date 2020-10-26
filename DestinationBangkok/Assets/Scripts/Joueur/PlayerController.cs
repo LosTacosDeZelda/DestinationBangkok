@@ -31,15 +31,15 @@ public class PlayerController : MonoBehaviour
     }
 
     public float longueurRaycast;
-    public RaycastHit playerFeet;
+    public RaycastHit solPres;
+    public RaycastHit infoDecal;
     private void FixedUpdate()
     {
         
         Movement();
 
-        
-
-        if (Physics.Raycast(transform.position, Vector3.down, out playerFeet, longueurRaycast))
+        //Raycast pour savoir si le joueur est proche du sol
+        if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
         {
 
             closeToGround = true;
@@ -54,7 +54,12 @@ public class PlayerController : MonoBehaviour
             closeToGround = false;
         }
 
-        Debug.DrawLine(transform.position, transform.position + (Vector3.down * longueurRaycast), Color.red);
+        if (Physics.Raycast(transform.position, Vector3.down, out infoDecal, 100))
+        {
+
+        }
+
+        Debug.DrawLine(transform.position, transform.position + (Vector3.down * 100), Color.red);
 
 
     }
@@ -171,7 +176,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider colEnter)
     {
        
-        if (colEnter.gameObject.layer == 8)
+        if (colEnter.gameObject.tag == "Sol")
         {
             // La couche #8 est le sol
             //Touche le sol (peut sauter)
@@ -179,7 +184,6 @@ public class PlayerController : MonoBehaviour
             
             playerVelocityMod = new Vector3(10, 0, 10);
 
-            //Adapter le collider à l'animation du perso
             
             
 
@@ -187,49 +191,26 @@ public class PlayerController : MonoBehaviour
        
     }
     
-    void resizeCollider()
-    {
-        gameObject.GetComponent<CapsuleCollider>().center = new Vector3(0, 0.62f, 0);
-        gameObject.GetComponent<CapsuleCollider>().height = 1.25f;
-    }
-
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == 8)
-        {
-            // La couche #8 est le sol
-            //Touche le sol (peut sauter)
-            isGrounded = true;
-
-            playerVelocityMod = new Vector3(10, 0, 10);
-
-        }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.layer == 8)
-        {
-            // La couche #8 est le sol
-            //Touche le sol (peut sauter)
-            isGrounded = false;
-            playerVelocityMod = new Vector3(4, 0, 4);
-
-        }
-    }*/
 
     private void OnTriggerExit(Collider colExit)
     {
-        if (colExit.gameObject.layer == 8)
+        if (colExit.gameObject.tag == "Sol")
         {
             // La couche #8 est le sol
             //Ne touche plus le sol (ne peut pas sauter)
             isGrounded = false;
             playerVelocityMod = new Vector3(6, 0, 6);
 
-            //Adapter le collider à l'animation du perso
             
 
         }
+    }
+
+   
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("feu touche joueur");
     }
 
     void OnAnimatorIK()

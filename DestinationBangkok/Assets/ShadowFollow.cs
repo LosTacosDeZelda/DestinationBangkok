@@ -9,7 +9,9 @@ public class ShadowFollow : MonoBehaviour
     // Update est appelée des dizaines de fois/seconde
     void Update()
     {
-        
-        transform.position = new Vector3(player.transform.position.x,  player.GetComponent<PlayerController>().playerFeet.point.y + -0.45f, player.transform.position.z);
+        float distanceSol = Mathf.Clamp(player.GetComponent<PlayerController>().infoDecal.distance, 1, 1.75f);
+        print(Mathf.Clamp(player.GetComponent<PlayerController>().infoDecal.distance,0,10));
+        transform.position = new Vector3(player.transform.position.x, Mathf.Clamp(player.GetComponent<PlayerController>().infoDecal.point.y, 41, 100), player.transform.position.z);
+        transform.localScale = new Vector3(1 / (distanceSol), 1 / (distanceSol), 1); 
     }
 }
