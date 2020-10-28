@@ -5086,11 +5086,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objetMouvement: {fileID: 1173006124}
   typePiege: 0
-  typesDeMouvement: 1
-  axeRotation: 2
-  velociteUnAxe: 20
-  angleMax: 100
-  angleMin: -100
+  typesDeMouvement: 3
+  axesRotation: 1
+  limiterRotation: 0
+  vitesseRotationUnAxe: 50
+  angleMax: 90.76924
+  angleMin: -60.769207
+  axesTranslation: 2
+  vitesseTranslationUnAxe: 2
+  posMax: 0.8333563
+  posMin: 0.06410928
+  "Instancier\xC9l\xE9ment": 0
+  objetAInstancier: {fileID: 0}
 --- !u!1 &183850992
 GameObject:
   m_ObjectHideFlags: 0
@@ -15444,7 +15451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173006124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -172.85, y: 42.163, z: 56.68}
+  m_LocalPosition: {x: -172.85, y: 42.163, z: 56.54}
   m_LocalScale: {x: 1, y: 2.0048, z: 1}
   m_Children:
   - {fileID: 294323743}
@@ -15466,7 +15473,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1240544114
 GameObject:

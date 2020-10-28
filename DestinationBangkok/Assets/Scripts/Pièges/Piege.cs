@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//Auteurs : François et Raphaël
+//Auteurs : François et Raphaël Jeudy
 
 public class Piege : MonoBehaviour
 {
+    
     public GameObject objetMouvement;
     Rigidbody rbPiege;
+    Vector3 positionDépart;
+    
     public enum TypePiege
     {
         Flamme,
         Perforation,
         Poison,
+        Glacé,
     }
 
     public TypePiege typePiege;
@@ -28,86 +32,115 @@ public class Piege : MonoBehaviour
 
     public TypeMouvement typesDeMouvement;
 
-    public enum AxeRot
+    public enum Axes
     {
         X,
         Y,
         Z,
     }
 
-    public AxeRot axeRotation;
-
-    
-    
-    public float velociteUnAxe;
+    public Axes axesRotation;
+ 
+    public bool limiterRotation;
+    public float vitesseRotationUnAxe;
+    float rotAxeCourant;
     public float angleMax;
     public float angleMin;
 
-    float rotUnAxe;
     float angleMaxQuat;
     float angleMinQuat;
 
-    // Start is called before the first frame update
+
+    public Axes axesTranslation;
+
+    public float vitesseTranslationUnAxe;
+    float posAxeCourant;
+    public float posMax;
+    public float posMin;
+
+    public bool InstancierÉlément;
+    public GameObject objetAInstancier;
+
+    // Start est appelée avant la première image 
     void Start()
     {
         rbPiege = objetMouvement.GetComponent<Rigidbody>();
+        positionDépart = objetMouvement.transform.position;
+    }
 
-        switch (typesDeMouvement)
+    bool appelleFonction = true;
+    private void FixedUpdate()
+    {
+        
+
+            //Changer le type de mouvement du piège
+            switch (typesDeMouvement)
+            {
+                case TypeMouvement.Rotation:
+
+                    StartCoroutine(Rotation());
+
+                    break;
+
+                case TypeMouvement.Translation:
+
+                    StartCoroutine(Translation());
+
+                    break;
+
+                case TypeMouvement.RotationEtTranslation:
+
+                    StartCoroutine(Translation());
+                    StartCoroutine(Rotation());
+
+                    break;
+
+                default:
+                    break;
+
+            
+        }
+
+        //Changer l'axe de rotation du piège
+        switch (axesRotation)
         {
-            case TypeMouvement.Rotation:
-
-                StartCoroutine(Rotation());
-
-                break;
-
-            case TypeMouvement.Translation:
-
-                StartCoroutine(Translation());
+            case Axes.X:
+                rotAxeCourant = rbPiege.rotation.x;
+                angleMaxQuat = Quaternion.Euler(new Vector3(angleMax,0,0)).x;
+                angleMinQuat = Quaternion.Euler(new Vector3(angleMin, 0, 0)).x;
+                vitesseRotation = new Vector3(vitesseRotationUnAxe, 0, 0);
 
                 break;
-
-            case TypeMouvement.RotationEtTranslation:
-
-                StartCoroutine(Translation());
-                StartCoroutine(Rotation());
-
+            case Axes.Y:
+                rotAxeCourant = rbPiege.rotation.y;
+                angleMaxQuat = Quaternion.Euler(new Vector3(0, angleMax, 0)).y;
+                angleMinQuat = Quaternion.Euler(new Vector3(0, angleMin, 0)).y;
+                vitesseRotation = new Vector3(0, vitesseRotationUnAxe, 0);
                 break;
-
+            case Axes.Z:
+                rotAxeCourant = rbPiege.rotation.z;
+                angleMaxQuat = Quaternion.Euler(new Vector3(0, 0, angleMax)).z;
+                angleMinQuat = Quaternion.Euler(new Vector3(0, 0, angleMin)).z;
+                vitesseRotation = new Vector3(0, 0, vitesseRotationUnAxe);
+                break;
             default:
                 break;
         }
 
-        
-
-
-    }
-
-    
-    private void FixedUpdate()
-    {
-
-        StartCoroutine(Rotation());
-
-        switch (axeRotation)
+        switch (axesTranslation)
         {
-            case AxeRot.X:
-                rotUnAxe = rbPiege.rotation.x;
-                angleMaxQuat = Quaternion.Euler(new Vector3(angleMax,0,0)).x;
-                angleMinQuat = Quaternion.Euler(new Vector3(angleMin, 0, 0)).x;
-                vitesseRotation = new Vector3(velociteUnAxe, 0, 0);
-
+            // pos dep = 50, pos courante = 70
+            case Axes.X:
+                posAxeCourant = rbPiege.transform.position.x - positionDépart.x;
+                vélocitésTranslation = new Vector3(vitesseTranslationUnAxe, 0, 0);
                 break;
-            case AxeRot.Y:
-                rotUnAxe = rbPiege.rotation.y;
-                angleMaxQuat = Quaternion.Euler(new Vector3(0, angleMax, 0)).y;
-                angleMinQuat = Quaternion.Euler(new Vector3(0, angleMin, 0)).y;
-                vitesseRotation = new Vector3(0, velociteUnAxe, 0);
+            case Axes.Y:
+                posAxeCourant = rbPiege.transform.position.y - positionDépart.y;
+                vélocitésTranslation = new Vector3(0, vitesseTranslationUnAxe, 0);
                 break;
-            case AxeRot.Z:
-                rotUnAxe = rbPiege.rotation.z;
-                angleMaxQuat = Quaternion.Euler(new Vector3(0, 0, angleMax)).z;
-                angleMinQuat = Quaternion.Euler(new Vector3(0, 0, angleMin)).z;
-                vitesseRotation = new Vector3(0, 0, velociteUnAxe);
+            case Axes.Z:
+                posAxeCourant = rbPiege.transform.position.z - positionDépart.z;
+                vélocitésTranslation = new Vector3(0, 0, vitesseTranslationUnAxe);
                 break;
             default:
                 break;
@@ -146,17 +179,47 @@ public class Piege : MonoBehaviour
 
         }
     }
-
+    Vector3 vélocitésTranslation;
+    bool sensNormal = true;
     IEnumerator Translation()
     {
-        //rbPiege.MovePosition()
-        yield return new WaitForSeconds(2);
+        
+
+        print(posAxeCourant);
+        
+        if (sensNormal == true)
+        {
+            
+            yield return new WaitForSeconds(0f);
+            
+            rbPiege.velocity = vélocitésTranslation;
+
+            if (posAxeCourant > posMax)
+            {
+
+                sensNormal = false;
+            }
+        }
+
+        if (sensNormal == false)
+        {
+            
+            yield return new WaitForSeconds(0f);
+            
+            rbPiege.velocity = -vélocitésTranslation;
+
+            if (posAxeCourant < posMin)
+            {
+                sensNormal = true;
+            }
+
+        }
+        
+        
     }
 
     Vector3 vitesseRotation;
-    
     bool clockwise = false;
-    
     
     IEnumerator Rotation()
     {
@@ -167,7 +230,7 @@ public class Piege : MonoBehaviour
             yield return new WaitForSeconds(0f);
             rbPiege.angularVelocity = vitesseRotation;
 
-            if (rotUnAxe > angleMaxQuat)
+            if (rotAxeCourant > angleMaxQuat && limiterRotation)
             {
                 
                 clockwise = true;
@@ -176,11 +239,10 @@ public class Piege : MonoBehaviour
         
         if (clockwise == true)
         {
-            
             yield return new WaitForSeconds(0f);
             rbPiege.angularVelocity = -vitesseRotation;
 
-            if (rotUnAxe < angleMinQuat)
+            if (rotAxeCourant < angleMinQuat && limiterRotation)
             {
                 clockwise = false;
             }
