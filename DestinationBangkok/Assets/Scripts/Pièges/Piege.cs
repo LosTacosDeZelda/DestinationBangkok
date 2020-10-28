@@ -185,7 +185,7 @@ public class Piege : MonoBehaviour
     {
         
 
-        print(posAxeCourant);
+        // print(posAxeCourant);
         
         if (sensNormal == true)
         {
