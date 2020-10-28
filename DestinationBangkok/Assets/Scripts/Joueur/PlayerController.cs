@@ -206,16 +206,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
-
-    private void OnParticleCollision(GameObject other)
+    public void JoueurBlesse(string typePiege)
     {
-        Debug.Log("feu touche joueur");
+        switch (typePiege)
+        {
+            case "Flamme":
+                //Applique leffet Flamme (brûlé)
+                break;
+
+            case "Perforation" :
+                //Applique leffet perforation (saignements)
+                break;
+
+            case "Poison":
+                //Applique leffet poison (empoisonné)
+                break;
+            default:
+                break;
+        }
+        print(typePiege);
     }
 
-    void OnAnimatorIK()
-    {
-        print("OnAnimIk");
-       
-    }
+
+    
 }
