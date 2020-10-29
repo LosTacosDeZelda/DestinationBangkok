@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-//Auteur : Raphael Jeudy, + aide de l'internet
+//Auteur : Par Raphael Jeudy aidé pas mal d'internet ;)
 
 [CustomEditor(typeof(Piege))]
 public class PiegeEditor : Editor
@@ -17,7 +17,9 @@ public class PiegeEditor : Editor
     {
         var piege = target as Piege;
 
-        piege.objetMouvement = EditorGUILayout.ObjectField("Objet en Mouvement", piege.objetMouvement, typeof(GameObject), true) as GameObject;
+        piege.objetMouvementEstParent = EditorGUILayout.Toggle("Mouvement est parent ?", piege.objetMouvementEstParent);
+
+        //EditorGUILayout.ObjectField("Objet en Mouvement", piege.objetMouvement, typeof(GameObject), true) as GameObject;
 
         piege.typePiege = (Piege.TypePiege) EditorGUILayout.EnumPopup("Type de Pièges", piege.typePiege);
         piege.typesDeMouvement = (Piege.TypeMouvement)EditorGUILayout.EnumPopup("Type de Mouvement", piege.typesDeMouvement);
@@ -49,52 +51,65 @@ public class PiegeEditor : Editor
         {
             if (group.visible)
             {
-                //EditorGUI.indentLevel++;
+                EditorGUI.indentLevel++;
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Rotation", EditorStyles.boldLabel);
+
                 piege.axesRotation = (Piege.Axes)EditorGUILayout.EnumPopup("Axes Rotation", piege.axesRotation);
                 EditorGUILayout.PrefixLabel("Vélocité Rotation");
                 piege.vitesseRotationUnAxe = EditorGUILayout.Slider(piege.vitesseRotationUnAxe, -50, 50);
                 piege.limiterRotation = EditorGUILayout.Toggle("Limiter Rotation", piege.limiterRotation);
-                //EditorGUI.indentLevel--;
+                EditorGUI.indentLevel--;
+
+                using (var subGroup = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(piege.limiterRotation)))
+                {
+                    if (subGroup.visible)
+                    {
+                        EditorGUI.indentLevel+=2;
+                        EditorGUILayout.LabelField("Valeur Min =", Mathf.Round(piege.angleMin).ToString());
+                        EditorGUILayout.LabelField("Valeur Max =", Mathf.Round(piege.angleMax).ToString());
+                        EditorGUILayout.MinMaxSlider(ref piege.angleMin, ref piege.angleMax, -180, 180);
+                        EditorGUI.indentLevel-=2;
+                    }
+                }
             }
         }
 
-        using (var group = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(piege.limiterRotation)))
-        {
-            if (group.visible)
-            {
-                //EditorGUI.indentLevel++;
-                EditorGUILayout.LabelField("Valeur Min:", piege.angleMin.ToString());
-                EditorGUILayout.LabelField("Valeur Max :", piege.angleMax.ToString());
-                EditorGUILayout.MinMaxSlider(ref piege.angleMin, ref piege.angleMax, -180, 180);
-                //EditorGUI.indentLevel--;
-            }
-        }
+        
 
 
         using (var group = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(showTrans)))
         {
             if (group.visible)
             {
-                //EditorGUI.indentLevel++;
+                EditorGUI.indentLevel++;
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Translation", EditorStyles.boldLabel);
+
                 piege.axesTranslation = (Piege.Axes)EditorGUILayout.EnumPopup("Axes Translation", piege.axesTranslation);
                 EditorGUILayout.PrefixLabel("Vitesse Translation");
                 piege.vitesseTranslationUnAxe = EditorGUILayout.Slider(piege.vitesseTranslationUnAxe, -50, 50);
-                EditorGUILayout.LabelField("Valeur Min:", piege.posMin.ToString());
-                EditorGUILayout.LabelField("Valeur Max :", piege.posMax.ToString());
+                EditorGUILayout.LabelField("Valeur Min =", Mathf.Round(piege.posMin).ToString());
+                EditorGUILayout.LabelField("Valeur Max =", Mathf.Round(piege.posMax).ToString());
                 EditorGUILayout.MinMaxSlider(ref piege.posMin, ref piege.posMax, -5, 5);
-                //EditorGUI.indentLevel--;
+                EditorGUI.indentLevel--;
             }
         }
 
+        EditorGUILayout.Space(); 
+        EditorGUILayout.LabelField("Module Instance", EditorStyles.boldLabel);
         piege.InstancierÉlément = EditorGUILayout.Toggle("Instancier Élément", piege.InstancierÉlément);
-       
 
         using (var group = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(piege.InstancierÉlément)))
         {
             if (group.visible)
             {
                 EditorGUI.indentLevel++;
-                piege.objetAInstancier = EditorGUILayout.ObjectField("Objet à instancier", piege.objetAInstancier, typeof(GameObject), true) as GameObject;
+                piege.objetAInstancier = EditorGUILayout.ObjectField("Prefab à instancier", piege.objetAInstancier, typeof(GameObject), true) as GameObject;
+                piege.vélocitéInstance = EditorGUILayout.Vector3Field("Vélocité de l'instance", piege.vélocitéInstance);
+                piege.délaiInstance = EditorGUILayout.FloatField("Délai 1er clone", piege.délaiInstance); //(piege.vélocitéInstance, -20, 20);
+                piege.intervalleInstance = EditorGUILayout.FloatField("Intervalle entre clones", piege.intervalleInstance);
+                piege.délaiDestruction = EditorGUILayout.IntField("Délai avant destruction", piege.délaiDestruction);
                 EditorGUI.indentLevel--;
             }
         }

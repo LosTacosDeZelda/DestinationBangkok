@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//Auteurs : François et Raphaël Jeudy
+//Auteur : Raphaël Jeudy
+//Script Modulaire qui permet de créer plusieurs types de pièges
 
 public class Piege : MonoBehaviour
 {
-    
-    public GameObject objetMouvement;
-    Rigidbody rbPiege;
-    Vector3 positionDépart;
     
     public enum TypePiege
     {
@@ -39,6 +36,12 @@ public class Piege : MonoBehaviour
         Z,
     }
 
+    //Variables Principales
+    public bool objetMouvementEstParent;
+    Rigidbody rbPiege;
+    Vector3 positionDépart;
+
+    //Rotation
     public Axes axesRotation;
  
     public bool limiterRotation;
@@ -50,7 +53,7 @@ public class Piege : MonoBehaviour
     float angleMaxQuat;
     float angleMinQuat;
 
-
+    //Translation
     public Axes axesTranslation;
 
     public float vitesseTranslationUnAxe;
@@ -58,21 +61,40 @@ public class Piege : MonoBehaviour
     public float posMax;
     public float posMin;
 
+    //Module instance
     public bool InstancierÉlément;
     public GameObject objetAInstancier;
+    public Vector3 vélocitéInstance;
+    public float délaiInstance;
+    public float intervalleInstance;
+    public int délaiDestruction;
 
-    // Start est appelée avant la première image 
+    // Start est appelée dès que le jeu roule
     void Start()
     {
-        rbPiege = objetMouvement.GetComponent<Rigidbody>();
-        positionDépart = objetMouvement.transform.position;
+        if (objetMouvementEstParent)
+        {
+            rbPiege = GetComponentInParent<Rigidbody>();
+        }
+        else
+        {
+            rbPiege = GetComponent<Rigidbody>();
+        }
+
+        print(rbPiege.gameObject);
+        rbPiege.useGravity = false;
+        positionDépart = rbPiege.transform.position;
+
+        //Appeler la coroutine d'instanciation si l'utilisateur a coché la case
+        if (InstancierÉlément)
+        {
+            StartCoroutine(Instanciation());
+        }
     }
 
-    bool appelleFonction = true;
+    float tempsDepuisInstance;
     private void FixedUpdate()
     {
-        
-
             //Changer le type de mouvement du piège
             switch (typesDeMouvement)
             {
@@ -219,36 +241,65 @@ public class Piege : MonoBehaviour
     }
 
     Vector3 vitesseRotation;
-    bool clockwise = false;
+    bool sensHoraire = false;
     
     IEnumerator Rotation()
     {
         
-        if (clockwise == false)
+        if (sensHoraire == false)
         {
             
             yield return new WaitForSeconds(0f);
-            rbPiege.angularVelocity = vitesseRotation;
+
+            rbPiege.transform.Rotate(vitesseRotation);
+            
 
             if (rotAxeCourant > angleMaxQuat && limiterRotation)
             {
                 
-                clockwise = true;
+                sensHoraire = true;
             }
         }
         
-        if (clockwise == true)
+        if (sensHoraire == true)
         {
             yield return new WaitForSeconds(0f);
-            rbPiege.angularVelocity = -vitesseRotation;
+            rbPiege.transform.Rotate(-vitesseRotation);
 
             if (rotAxeCourant < angleMinQuat && limiterRotation)
             {
-                clockwise = false;
+                sensHoraire = false;
             }
 
         }
         
+    }
+
+    bool premierAppelInstanciation = true;
+    IEnumerator Instanciation()
+    {
+        //Délai initial
+        if (premierAppelInstanciation)
+        {
+            premierAppelInstanciation = false;
+            yield return new WaitForSeconds(délaiInstance);
+        }
+
+        GameObject instance = Instantiate(objetAInstancier, rbPiege.position, Quaternion.identity);
+        instance.GetComponent<Rigidbody>().velocity = vélocitéInstance;
+
+        //Appeler la fonction pour détruire l'instance dans un certain temps
+        DétruireObjet(instance);
+
+        //Attendre un peu avant d'appeler la fonction une nouvelle fois
+        yield return new WaitForSeconds(intervalleInstance);
+
+        StartCoroutine(Instanciation());
+    }
+
+    void DétruireObjet(GameObject àDétruire)
+    {
+        Destroy(àDétruire, délaiDestruction);
     }
 
 }
