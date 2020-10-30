@@ -5,19 +5,17 @@ using UnityEditor;
 using System;
 
 //Auteur : Par Raphael Jeudy aidé pas mal d'internet ;)
-
 [CustomEditor(typeof(Piege))]
 public class PiegeEditor : Editor
 {
-    float valMin = -180;
-    float valMax = 180;
+
     bool showRot;
     bool showTrans;
     override public void OnInspectorGUI()
     {
         var piege = target as Piege;
 
-        piege.objetMouvementEstParent = EditorGUILayout.Toggle("Mouvement est parent ?", piege.objetMouvementEstParent);
+        piege.objetMouvementEstParent = EditorGUILayout.Toggle("Mouvement sur le parent ?", piege.objetMouvementEstParent);
 
         //EditorGUILayout.ObjectField("Objet en Mouvement", piege.objetMouvement, typeof(GameObject), true) as GameObject;
 
