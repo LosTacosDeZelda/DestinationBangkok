@@ -1217,7 +1217,7 @@ MonoBehaviour:
   raycast: 1
   raycastMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   raycastFadeSpeed: 10
 --- !u!1 &5628032504104642589
 GameObject:
