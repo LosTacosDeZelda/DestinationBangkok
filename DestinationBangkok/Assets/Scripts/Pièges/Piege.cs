@@ -340,7 +340,7 @@ public class Piege : MonoBehaviour
         }
 
         GameObject instance = Instantiate(objetAInstancier, rbPiege.position, Quaternion.identity /*Quaternion.AngleAxis(90, Vector3.right)*/);
-        //instance.transform.rotation = Quaternion.Euler(new Vector3())
+        instance.transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
         instance.GetComponent<Rigidbody>().velocity = transform.forward * vélocitéInstance;
 
         //Appeler la fonction pour détruire l'instance dans un certain temps
