@@ -124,17 +124,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eec2c0046a56204c9e63d082be0b403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objetMouvement: {fileID: 2947092229014447985}
   typePiege: 1
   typesDeMouvement: 2
+  objetMouvementEstParent: 0
   axesRotation: 0
-  limiterRotation: 0
-  vitesseRotationUnAxe: 0
-  angleMax: 0
-  angleMin: 0
-  axesTranslation: 1
+  limiterRotation: 1
+  vitesseRotationUnAxe: 27.4
+  angleMax: 81.9483
+  angleMin: -180
+  axesTranslation: 2
   vitesseTranslationUnAxe: 1
-  posMax: 0.74934846
-  posMin: -0.63241106
+  posMax: 5
+  posMin: -3.9382238
   "Instancier\xC9l\xE9ment": 0
-  objetAInstancier: {fileID: 2947092229014447985}
+  objetAInstancier: {fileID: 0}
+  "v\xE9locit\xE9Instance": {x: 0, y: 0, z: 0}
+  "d\xE9laiInstance": 1.35
+  intervalleInstance: 3.59
+  "d\xE9laiDestruction": 88
