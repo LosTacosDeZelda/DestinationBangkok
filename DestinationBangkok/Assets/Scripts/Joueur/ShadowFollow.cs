@@ -12,7 +12,7 @@ public class ShadowFollow : MonoBehaviour
     {
         float distanceSol = Mathf.Clamp(player.GetComponent<PlayerController>().infoDecal.distance, 1, 1.75f);
         
-        transform.position = new Vector3(player.transform.position.x, Mathf.Clamp(player.GetComponent<PlayerController>().infoDecal.point.y, 41, 100), player.transform.position.z);
+        transform.position = new Vector3(player.transform.position.x, Mathf.Clamp(player.GetComponent<PlayerController>().infoDecal.point.y - 0.04f, 39, 100), player.transform.position.z);
         transform.localScale = new Vector3(1 / (distanceSol), 1 / (distanceSol), 0.1f); 
     }
 }

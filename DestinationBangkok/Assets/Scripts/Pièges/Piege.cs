@@ -64,7 +64,7 @@ public class Piege : MonoBehaviour
     //Module instance
     public bool InstancierÉlément;
     public GameObject objetAInstancier;
-    public Vector3 vélocitéInstance;
+    public float vélocitéInstance;
     public float délaiInstance;
     public float intervalleInstance;
     public int délaiDestruction;
@@ -339,8 +339,9 @@ public class Piege : MonoBehaviour
             yield return new WaitForSeconds(délaiInstance);
         }
 
-        GameObject instance = Instantiate(objetAInstancier, rbPiege.position, Quaternion.identity);
-        instance.GetComponent<Rigidbody>().velocity = vélocitéInstance;
+        GameObject instance = Instantiate(objetAInstancier, rbPiege.position, Quaternion.identity /*Quaternion.AngleAxis(90, Vector3.right)*/);
+        //instance.transform.rotation = Quaternion.Euler(new Vector3())
+        instance.GetComponent<Rigidbody>().velocity = transform.forward * vélocitéInstance;
 
         //Appeler la fonction pour détruire l'instance dans un certain temps
         DétruireObjet(instance);

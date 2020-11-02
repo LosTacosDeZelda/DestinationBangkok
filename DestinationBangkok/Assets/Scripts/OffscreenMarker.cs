@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 /* J'ai pris ce script dans le github : https://github.com/zloedi/offscreen_markers */
+//Met un indicateur sur le bord de l'écran
 
 class OffscreenMarker : MonoBehaviour {
     public Texture Icon = null;
