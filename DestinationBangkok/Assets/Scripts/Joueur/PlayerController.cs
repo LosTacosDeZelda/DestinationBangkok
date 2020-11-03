@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject camPivot;
 
+    public AudioSource marcheSol;
+    public AudioClip marche;
+
     [Header("Gestion du Saut")]
     public bool closeToGround;
 
@@ -19,7 +22,7 @@ public class PlayerController : MonoBehaviour
         playerAnim = gameObject.GetComponent<Animator>();
         playerRB = gameObject.GetComponent<Rigidbody>();
 
-       
+        marcheSol = GetComponent<AudioSource>();
     }
 
   
@@ -27,7 +30,10 @@ public class PlayerController : MonoBehaviour
     {
         //Besoin du Update normal, pour le getButtonDown
         Jump();
-
+        /*if (playerAnim.GetBool("isRunning") == true)
+        {
+            marcheSol.PlayOneShot(marche);
+        }*/
     }
 
     public float longueurRaycast;
@@ -115,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
             playerAnim.SetBool("isRunning", true);
 
-         
+            marcheSol.PlayOneShot(marche, 0.7F);
            
         }
 

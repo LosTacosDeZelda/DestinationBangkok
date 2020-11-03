@@ -125,20 +125,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typePiege: 1
-  typesDeMouvement: 0
+  typesDeMouvement: 2
   objetMouvementEstParent: 0
   axesRotation: 0
   limiterRotation: 1
   vitesseRotationUnAxe: 27.4
   angleMax: 81.9483
   angleMin: -180
-  axesTranslation: 2
+  axesTranslation: 1
   vitesseTranslationUnAxe: 1
-  posMax: 5
-  posMin: -3.9382238
+  posMax: 1.5979381
+  posMin: -1.3402858
   "Instancier\xC9l\xE9ment": 0
   objetAInstancier: {fileID: 0}
-  "v\xE9locit\xE9Instance": {x: 0, y: 0, z: 0}
+  "v\xE9locit\xE9Instance": 0
   "d\xE9laiInstance": 1.35
   intervalleInstance: 3.59
   "d\xE9laiDestruction": 88

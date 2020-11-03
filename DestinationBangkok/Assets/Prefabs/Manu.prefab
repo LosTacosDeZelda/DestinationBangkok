@@ -2009,6 +2009,8 @@ MonoBehaviour:
   playerRB: {fileID: 0}
   playerAnim: {fileID: 0}
   camPivot: {fileID: 0}
+  marcheSol: {fileID: 0}
+  marche: {fileID: 0}
   closeToGround: 0
   longueurRaycast: 2
   vitesseDeChute: 500
