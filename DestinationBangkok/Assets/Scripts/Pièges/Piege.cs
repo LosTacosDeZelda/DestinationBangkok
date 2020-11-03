@@ -81,6 +81,7 @@ public class Piege : MonoBehaviour
             rbPiege = GetComponent<Rigidbody>();
         }
 
+        print(rbPiege.gameObject);
         rbPiege.useGravity = false;
         positionDépart = rbPiege.transform.position;
 
@@ -222,7 +223,7 @@ public class Piege : MonoBehaviour
         if (infoCollision.gameObject.tag == "Player")
         {
             infoCollision.gameObject.GetComponent<PlayerController>().JoueurBlesse(typePiege.ToString());
-            
+            print("Manu a touché un piège de type " + typePiege.ToString() + ", la partie est finie");
 
         }
     }
@@ -232,7 +233,7 @@ public class Piege : MonoBehaviour
         if (infoCollision.gameObject.tag == "Player")
         {
             infoCollision.gameObject.GetComponent<PlayerController>().JoueurBlesse(typePiege.ToString());
-            
+            print("Manu a touché un piège de type " + typePiege.ToString() + ", la partie est finie");
             
         }
     }
@@ -242,7 +243,7 @@ public class Piege : MonoBehaviour
         if (other.tag == "Player")
         {
             other.GetComponent<PlayerController>().JoueurBlesse(typePiege.ToString());
-            
+            print("Manu a touché un piège de type " + typePiege.ToString() + ", la partie est finie");
 
         }
     }

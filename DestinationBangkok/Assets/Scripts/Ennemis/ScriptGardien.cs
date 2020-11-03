@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /*
-* Script qui gère les ennemis
+* Script qui gère l'ennemi Gardien
 */
 
-public class ScriptEnnemis : MonoBehaviour
+public class ScriptGardien : MonoBehaviour
 {
     //référence au NavMeshAgent de l'ennemie
     NavMeshAgent navAI;
@@ -21,7 +21,7 @@ public class ScriptEnnemis : MonoBehaviour
     //Boléen pour savoir si l'ennemie est mort
     public bool EnnemiMort;
 
-    private Vector3 positionInitialEnnemi;
+    public Vector3 positionInitialEnnemi;
 
     public float distanceLimite;
 

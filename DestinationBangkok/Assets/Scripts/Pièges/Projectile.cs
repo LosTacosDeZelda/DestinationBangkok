@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
    
     private void OnTriggerEnter(Collider trigEnter)
     {
-
+        print(typePiegeStr);
         if (trigEnter.gameObject.tag == "Player")
         {
             trigEnter.gameObject.GetComponent<PlayerController>().JoueurBlesse(typePiegeStr);

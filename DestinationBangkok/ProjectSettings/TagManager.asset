@@ -8,7 +8,6 @@ TagManager:
   - Piege
   - Sol
   - Ennemis
-  - DepartStatue
   layers:
   - Default
   - TransparentFX
