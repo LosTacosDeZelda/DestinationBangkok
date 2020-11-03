@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip marche;
 
     [Header("Gestion du Saut")]
-    public bool closeToGround;
+    public bool presDuSol;
 
     
     void Start()
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         //Besoin du Update normal, pour le getButtonDown
         Jump();
-        /*if (playerAnim.GetBool("isRunning") == true)
+        /*if (playerAnim.GetBool("court") == true)
         {
             marcheSol.PlayOneShot(marche);
         }*/
@@ -48,16 +48,16 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
         {
 
-            closeToGround = true;
-            if (playerAnim.GetBool("CloseToGround") == false && !isGrounded && playerRB.velocity.y < 0)
+            presDuSol = true;
+            if (playerAnim.GetBool("presDuSol") == false && !isGrounded && playerRB.velocity.y < 0)
             {
-                playerAnim.SetBool("CloseToGround", true);
+                playerAnim.SetBool("presDuSol", true);
             }
 
         }
         else
         {
-            closeToGround = false;
+            presDuSol = false;
         }
 
         if (Physics.Raycast(transform.position, Vector3.down, out infoDecal, 100))
@@ -86,9 +86,9 @@ public class PlayerController : MonoBehaviour
 
         if (playerRB.velocity.y < 5)
         {
-            if (playerAnim.GetBool("isFalling") == false)
+            if (playerAnim.GetBool("tombe") == false)
             {
-                playerAnim.SetBool("isFalling", true);
+                playerAnim.SetBool("tombe", true);
             }
 
         }
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerRB.velocity.x == 0 && playerRB.velocity.z == 0)
         {
-            playerAnim.SetBool("isRunning", false);
+            playerAnim.SetBool("court", false);
         }
         else
         {
@@ -119,14 +119,14 @@ public class PlayerController : MonoBehaviour
 
             playerRB.rotation = Quaternion.Euler(0, persoAngleY, 0);
 
-            playerAnim.SetBool("isRunning", true);
+            playerAnim.SetBool("court", true);
 
             marcheSol.PlayOneShot(marche, 0.7F);
            
         }
 
         //Animation de course accélère progressivement
-        playerAnim.SetFloat("speedMultiplier", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
+        playerAnim.SetFloat("multiplicateurVitesse", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
 
 
        
@@ -150,8 +150,8 @@ public class PlayerController : MonoBehaviour
         {
 
            
-            playerAnim.SetBool("isFalling", false);
-            playerAnim.SetBool("CloseToGround", false);
+            playerAnim.SetBool("tombe", false);
+            playerAnim.SetBool("presDuSol", false);
 
             //Peut sauter
             //Saut
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
                 
                 playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
 
-                playerAnim.SetTrigger("Jumps");
+                playerAnim.SetTrigger("saute");
 
 
             }

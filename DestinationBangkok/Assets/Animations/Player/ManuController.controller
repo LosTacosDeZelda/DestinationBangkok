@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6559091717608044577}
@@ -73,7 +73,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: CloseToGround
+    m_ConditionEvent: presDuSol
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3539374709548478758}
@@ -98,8 +98,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: a199d05c3d7d21144af0aa46606766ec,
-      type: 3}
+    m_Motion: {fileID: 7400000, guid: a6da08df7bf54c74985bb6f977c76b10, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -107,15 +106,14 @@ BlendTree:
     m_DirectBlendParameter: speedMultiplier
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 320d6f82658cc7e458b21b8e8194ee25,
-      type: 3}
+    m_Motion: {fileID: 7400000, guid: 2f0fca95ffdc8e04c92db16c17c172d9, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1.2
     m_CycleOffset: 0
     m_DirectBlendParameter: speedMultiplier
     m_Mirror: 0
-  m_BlendParameter: speedMultiplier
+  m_BlendParameter: multiplicateurVitesse
   m_BlendParameterY: speedMultiplier
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -131,7 +129,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -230279897386281245}
@@ -154,7 +152,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Moving
+  m_Name: Mouvements
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -183,36 +181,36 @@ AnimatorController:
   m_Name: ManuController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: speedMultiplier
+  - m_Name: multiplicateurVitesse
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isRunning
+    m_Controller: {fileID: 0}
+  - m_Name: court
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Jumps
+    m_Controller: {fileID: 0}
+  - m_Name: saute
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isFalling
+    m_Controller: {fileID: 0}
+  - m_Name: tombe
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: CloseToGround
+    m_Controller: {fileID: 0}
+  - m_Name: presDuSol
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -235,7 +233,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Jumps
+    m_ConditionEvent: saute
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4428238393621205091}
@@ -258,7 +256,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JumpDown
+  m_Name: Atterrissage
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -273,8 +271,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: e96df2044cc30db4bba4a107ce1651bc,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 9863b96b6137d9a4db9dd63156c7f474, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -289,7 +286,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -230279897386281245}
@@ -312,7 +309,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Falling
+  m_Name: Chute
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -326,8 +323,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 53e6f89135b8a224b880a214ef333cdb,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 57b2d7bcf8fceec49afed5faf302261e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -367,7 +363,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6559091717608044577}
@@ -405,7 +401,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: Neutre
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -419,10 +415,9 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3100369314251171874, guid: 83a183b60672c014c8347475a72e1fa9,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: cbd38df1e2d1f9341a1c5ba3a6e2bbf3, type: 2}
   m_Tag: 
-  m_SpeedParameter: speedMultiplier
+  m_SpeedParameter: multiplicateurVitesse
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
