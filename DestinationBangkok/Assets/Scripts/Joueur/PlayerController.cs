@@ -49,9 +49,9 @@ public class PlayerController : MonoBehaviour
         {
 
             closeToGround = true;
-            if (playerAnim.GetBool("CloseToGround") == false && !isGrounded && playerRB.velocity.y < 0)
+            if (playerAnim.GetBool("procheDuSol") == false && !isGrounded && playerRB.velocity.y < 0)
             {
-                playerAnim.SetBool("CloseToGround", true);
+                playerAnim.SetBool("procheDuSol", true);
             }
 
         }
@@ -86,18 +86,18 @@ public class PlayerController : MonoBehaviour
 
         if (playerRB.velocity.y < 5)
         {
-            if (playerAnim.GetBool("isFalling") == false)
+            if (playerAnim.GetBool("tombe") == false)
             {
-                playerAnim.SetBool("isFalling", true);
+                playerAnim.SetBool("tombe", true);
             }
 
         }
+
 
         //En gros, on veut ignorer la rotation en X pour la direction du mouvement du joueur
         Transform dirCam = camPivot.transform;
         dirCam.rotation = Quaternion.Euler(0, camPivot.transform.eulerAngles.y, camPivot.transform.eulerAngles.z);
 
-        //dirCam.rotation = rotCam;
 
         //Wooow le calcul qui me pete le cerveau
         moveDirection = (Input.GetAxis("Vertical") * dirCam.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * dirCam.transform.right * playerVelocityMod.x);
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerRB.velocity.x == 0 && playerRB.velocity.z == 0)
         {
-            playerAnim.SetBool("isRunning", false);
+            playerAnim.SetBool("court", false);
         }
         else
         {
@@ -119,14 +119,14 @@ public class PlayerController : MonoBehaviour
 
             playerRB.rotation = Quaternion.Euler(0, persoAngleY, 0);
 
-            playerAnim.SetBool("isRunning", true);
+            playerAnim.SetBool("court", true);
 
             marcheSol.PlayOneShot(marche, 0.7F);
            
         }
 
         //Animation de course accélère progressivement
-        playerAnim.SetFloat("speedMultiplier", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
+        playerAnim.SetFloat("multiplicateurVitesse", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
 
 
        
@@ -150,8 +150,8 @@ public class PlayerController : MonoBehaviour
         {
 
            
-            playerAnim.SetBool("isFalling", false);
-            playerAnim.SetBool("CloseToGround", false);
+            playerAnim.SetBool("tombe", false);
+            playerAnim.SetBool("procheDuSol", false);
 
             //Peut sauter
             //Saut
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
                 
                 playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
 
-                playerAnim.SetTrigger("Jumps");
+                playerAnim.SetTrigger("saute");
 
 
             }
