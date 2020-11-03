@@ -157,8 +157,6 @@ public class PlayerController : MonoBehaviour
             //Saut
             if (Input.GetButtonDown("Jump"))
             {
-                print("pressed A");
-
                 
                 playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
 
@@ -230,7 +228,7 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-        print(typePiege);
+       
     }
 
 
