@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Auteur : haoooo (Tabaaanak)
 public class AffichageMenu : MonoBehaviour
 {
   //=============================== GAMEOBJECT =================================

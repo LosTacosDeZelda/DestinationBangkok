@@ -38,6 +38,10 @@ public class PiegeEditor : Editor
     SerializedProperty délaiInstanceProp;
     SerializedProperty intervalleInstanceProp;
     SerializedProperty délaiDestructionProp;
+    SerializedProperty pointDapparitionProp;
+    SerializedProperty instanceRotHorizontaleProp;
+    SerializedProperty axeAvantProp;
+    SerializedProperty rotationInstanceProp;
 
     private void OnEnable()
     {
@@ -68,6 +72,12 @@ public class PiegeEditor : Editor
         délaiInstanceProp = serializedObject.FindProperty("délaiInstance");
         intervalleInstanceProp = serializedObject.FindProperty("intervalleInstance");
         délaiDestructionProp = serializedObject.FindProperty("délaiDestruction");
+
+        pointDapparitionProp = serializedObject.FindProperty("pointDapparition");
+        instanceRotHorizontaleProp = serializedObject.FindProperty("instanceRotHorizontale");
+        axeAvantProp = serializedObject.FindProperty("axeAvant");
+        rotationInstanceProp = serializedObject.FindProperty("rotationInstance");
+        
 
 
         angleMinVar = angleMinProp.floatValue;
@@ -243,10 +253,14 @@ public class PiegeEditor : Editor
             {
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(objetAInstancierProp, new GUIContent("Prefab à instancier"));
-                EditorGUILayout.PropertyField(vélocitéInstanceProp,new GUIContent("Vélocité de l'instance"));
-                EditorGUILayout.PropertyField(délaiInstanceProp,new GUIContent("Délai 1er clone")); //(piege.vélocitéInstance, -20, 20);
+                EditorGUILayout.PropertyField(pointDapparitionProp, new GUIContent("Point d'apparition de l'instance"));
+                EditorGUILayout.PropertyField(vélocitéInstanceProp, new GUIContent("Vélocité de l'instance"));
+                EditorGUILayout.PropertyField(instanceRotHorizontaleProp, new GUIContent("Rotation Y de l'instance"));
+                EditorGUILayout.PropertyField(délaiInstanceProp, new GUIContent("Délai 1er clone")); //(piege.vélocitéInstance, -20, 20);
                 EditorGUILayout.PropertyField(intervalleInstanceProp, new GUIContent("Intervalle entre clones"));
-                EditorGUILayout.PropertyField(délaiDestructionProp,new GUIContent("Délai avant destruction"));
+                EditorGUILayout.PropertyField(délaiDestructionProp, new GUIContent("Délai avant destruction"));
+                EditorGUILayout.PropertyField(axeAvantProp, new GUIContent("Axe Avant"));
+                EditorGUILayout.PropertyField(rotationInstanceProp, new GUIContent("Rotation Instance"));
                 EditorGUI.indentLevel--;
             }
         }

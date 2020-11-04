@@ -63,11 +63,21 @@ public class Piege : MonoBehaviour
 
     //Module instance
     public bool InstancierÉlément;
+
     public GameObject objetAInstancier;
     public float vélocitéInstance;
     public float délaiInstance;
     public float intervalleInstance;
     public int délaiDestruction;
+
+    public GameObject pointDapparition;
+    public float instanceRotHorizontale;
+    public Axes axeAvant;
+    int axeChoisi;
+    Vector3 axeTransform;
+    public Vector3 rotationInstance;
+
+    
 
     // Start est appelée dès que le jeu roule
     void Start()
@@ -83,6 +93,12 @@ public class Piege : MonoBehaviour
 
         rbPiege.useGravity = false;
         positionDépart = rbPiege.transform.position;
+
+        
+        //axesTransform[0] = transform.forward;
+        //axesTransform[1] = transform.right;
+        //axesTransform[2] = transform.up;
+
 
         //Appeler la coroutine d'instanciation si l'utilisateur a coché la case
         if (InstancierÉlément)
@@ -166,7 +182,7 @@ public class Piege : MonoBehaviour
                     break;
 
             
-        }
+            }
 
         //Changer l'axe de rotation du piège
         switch (axesRotation)
@@ -194,6 +210,7 @@ public class Piege : MonoBehaviour
                 break;
         }
 
+        //Changer la translation du piege
         switch (axesTranslation)
         {
             // pos dep = 50, pos courante = 70
@@ -208,6 +225,21 @@ public class Piege : MonoBehaviour
             case Axes.Z:
                 posAxeCourant = rbPiege.transform.position.z - positionDépart.z;
                 vélocitésTranslation = new Vector3(0, 0, vitesseTranslationUnAxe);
+                break;
+            default:
+                break;
+        }
+
+        switch (axeAvant)
+        {
+            case Axes.X:
+                axeTransform = transform.right;
+                break;
+            case Axes.Y:
+                axeTransform = transform.up;
+                break;
+            case Axes.Z:
+                axeTransform = transform.forward;
                 break;
             default:
                 break;
@@ -338,12 +370,10 @@ public class Piege : MonoBehaviour
             yield return new WaitForSeconds(délaiInstance);
         }
 
-        GameObject instance = Instantiate(objetAInstancier, rbPiege.position, Quaternion.identity /*Quaternion.AngleAxis(90, Vector3.right)*/);
+        GameObject instance = Instantiate(objetAInstancier, pointDapparition.transform.position, Quaternion.identity);
         instance.GetComponent<Projectile>().typePiegeStr = typePiege.ToString();
-        instance.transform.rotation = Quaternion.Euler(new Vector3(90, transform.rotation.eulerAngles.y, 0));
-        instance.GetComponent<Rigidbody>().velocity = transform.forward * vélocitéInstance;
-
-        
+        instance.transform.rotation = Quaternion.Euler(rotationInstance);
+        instance.GetComponent<Rigidbody>().velocity = axeTransform * vélocitéInstance;
 
         //Appeler la fonction pour détruire l'instance dans un certain temps
         DétruireObjet(instance);
