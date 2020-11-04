@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6559091717608044577}
@@ -73,7 +73,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: CloseToGround
+    m_ConditionEvent: procheDuSol
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3539374709548478758}
@@ -115,7 +115,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: speedMultiplier
     m_Mirror: 0
-  m_BlendParameter: speedMultiplier
+  m_BlendParameter: multiplicateurVitesse
   m_BlendParameterY: speedMultiplier
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -131,7 +131,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -230279897386281245}
@@ -183,36 +183,36 @@ AnimatorController:
   m_Name: ManuController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: speedMultiplier
+  - m_Name: multiplicateurVitesse
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isRunning
+    m_Controller: {fileID: 0}
+  - m_Name: court
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Jumps
+    m_Controller: {fileID: 0}
+  - m_Name: saute
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isFalling
+    m_Controller: {fileID: 0}
+  - m_Name: tombe
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: CloseToGround
+    m_Controller: {fileID: 0}
+  - m_Name: procheDuSol
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -235,7 +235,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Jumps
+    m_ConditionEvent: saute
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4428238393621205091}
@@ -289,7 +289,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -230279897386281245}
@@ -367,7 +367,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isRunning
+    m_ConditionEvent: court
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6559091717608044577}
@@ -422,7 +422,7 @@ AnimatorState:
   m_Motion: {fileID: -3100369314251171874, guid: 83a183b60672c014c8347475a72e1fa9,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: speedMultiplier
+  m_SpeedParameter: multiplicateurVitesse
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
