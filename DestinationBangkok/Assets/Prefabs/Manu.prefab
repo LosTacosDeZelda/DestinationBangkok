@@ -2012,6 +2012,8 @@ MonoBehaviour:
   marcheSol: {fileID: 0}
   marche: {fileID: 0}
   closeToGround: 0
+  refGestionStatus: {fileID: 0}
+  monDelai: 1.5
   longueurRaycast: 2
   vitesseDeChute: 500
   isGrounded: 0
