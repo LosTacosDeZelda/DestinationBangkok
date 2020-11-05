@@ -126,11 +126,11 @@ public class PlayerController : MonoBehaviour
         playerAnim.SetFloat("multiplicateurVitesse", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
     }
 
-    private void sonMarche()
+    public void sonMarche()
     {
         //if (playerAnim.GetBool("court") == true)
         //{
-            marcheSol.PlayOneShot(marche, 1f);
+            marcheSol.PlayOneShot(marche);
         //}
     }
 
