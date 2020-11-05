@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
   public GestionStatus refGestionStatus;
 
   public float monDelai = 1.5f;
+  public bool estMort = false;
 
 
   void Start()
@@ -33,14 +34,13 @@ public class PlayerController : MonoBehaviour
 
   void Update()
   {
-    //Besoin du Update normal, pour le getButtonDown
-    Jump();
-    /*if (playerAnim.GetBool("isRunning") == true)
-    {
-        marcheSol.PlayOneShot(marche);
-    }*/
-
-    if (monDelai > 0) { monDelai -= Time.deltaTime; }
+        if (estMort == false)
+        {
+            //Besoin du Update normal, pour le getButtonDown
+            Jump();
+        }
+    
+        if (monDelai > 0) { monDelai -= Time.deltaTime; }
   }
 
   public float longueurRaycast;
@@ -48,8 +48,15 @@ public class PlayerController : MonoBehaviour
   public RaycastHit infoDecal;
   private void FixedUpdate()
   {
-
-    Movement();
+        if (estMort == false)
+        {
+            Movement();
+        }
+        else
+        {
+            playerRB.velocity = Vector3.zero;
+        }
+    
 
     //Raycast pour savoir si le joueur est proche du sol
     if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
@@ -271,9 +278,11 @@ public class PlayerController : MonoBehaviour
   }
 
   void SequenceDeMort()
-  {     
+  {
+        //Désactiver l
+        estMort = true;
         //Animation de mort du joueur
-        playerAnim.SetBool("estMort", true);
+        playerAnim.SetBool("estMort", estMort);
 
         //Changement de cam et animation de cam
 
