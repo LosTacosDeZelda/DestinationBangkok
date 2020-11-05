@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Auteurs : Raph, Hao et François
 public class PlayerController : MonoBehaviour
 {
   public Rigidbody playerRB;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
   public GestionStatus refGestionStatus;
 
   public float monDelai = 1.5f;
+  public bool estMort = false;
 
 
   void Start()
@@ -32,14 +34,13 @@ public class PlayerController : MonoBehaviour
 
   void Update()
   {
-    //Besoin du Update normal, pour le getButtonDown
-    Jump();
-    /*if (playerAnim.GetBool("isRunning") == true)
-    {
-        marcheSol.PlayOneShot(marche);
-    }*/
-
-    if (monDelai > 0) { monDelai -= Time.deltaTime; }
+        if (estMort == false)
+        {
+            //Besoin du Update normal, pour le getButtonDown
+            Jump();
+        }
+    
+        if (monDelai > 0) { monDelai -= Time.deltaTime; }
   }
 
   public float longueurRaycast;
@@ -47,8 +48,15 @@ public class PlayerController : MonoBehaviour
   public RaycastHit infoDecal;
   private void FixedUpdate()
   {
-
-    Movement();
+        if (estMort == false)
+        {
+            Movement();
+        }
+        else
+        {
+            playerRB.velocity = Vector3.zero;
+        }
+    
 
     //Raycast pour savoir si le joueur est proche du sol
     if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
@@ -233,7 +241,8 @@ public class PlayerController : MonoBehaviour
 
           if (refGestionStatus.listeCompteStatus["Flamme"] == 3)
           {
-            print("il est mort");
+                //Démarrer Séquence de mort
+                SequenceDeMort();
           }
           break;
 
@@ -244,7 +253,8 @@ public class PlayerController : MonoBehaviour
           refGestionStatus.MettreAJourTexteFeu();
           if (refGestionStatus.listeCompteStatus["Perforation"] == 3)
           {
-            print("il est mort 2");
+                //Démarrer Séquence de mort
+                SequenceDeMort();
           }
           break;
 
@@ -255,7 +265,8 @@ public class PlayerController : MonoBehaviour
           refGestionStatus.MettreAJourTexteFeu();
           if (refGestionStatus.listeCompteStatus["Poison"] == 3)
           {
-            print("il est mort 3");
+                //Démarrer Séquence de mort
+                SequenceDeMort();
           }
           break;
         default:
@@ -264,6 +275,18 @@ public class PlayerController : MonoBehaviour
       monDelai = 1.5f;
     }
     print(typePiege);
+  }
+
+  void SequenceDeMort()
+  {
+        //Désactiver l
+        estMort = true;
+        //Animation de mort du joueur
+        playerAnim.SetBool("estMort", estMort);
+
+        //Changement de cam et animation de cam
+
+        //Animation de l'effet vignette (post-processing)
   }
 
 
