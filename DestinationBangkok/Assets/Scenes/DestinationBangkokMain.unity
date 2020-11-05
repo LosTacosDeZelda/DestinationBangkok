@@ -1210,6 +1210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 546555685}
   - component: {fileID: 546555686}
+  - component: {fileID: 546555687}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1249,6 +1250,18 @@ MonoBehaviour:
   cameraMort: {fileID: 372939188}
   postProcessing: {fileID: 457732630}
   panneauNoir: {fileID: 1724827233}
+--- !u!114 &546555687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546555684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c87d921032fa24198005cf9168fce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &588185670
 GameObject:
   m_ObjectHideFlags: 0
