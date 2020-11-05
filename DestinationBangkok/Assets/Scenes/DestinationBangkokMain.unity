@@ -7919,6 +7919,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: LanceFlammes
       objectReference: {fileID: 0}
+    - target: {fileID: 7022437401734161415, guid: 53f7700ffcafbd44ba0e59c68f2e0eea,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022437401734161415, guid: 53f7700ffcafbd44ba0e59c68f2e0eea,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f7700ffcafbd44ba0e59c68f2e0eea, type: 3}
 --- !u!4 &31198286976395506 stripped
