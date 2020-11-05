@@ -2047,6 +2047,9 @@ MonoBehaviour:
   refGestionStatus: {fileID: 2510163256752999364}
   monDelai: 1.5
   estMort: 0
+  groupFeu: {fileID: 0}
+  groupPoison: {fileID: 0}
+  groupPerfo: {fileID: 0}
   longueurRaycast: 2
   vitesseDeChute: 500
   isGrounded: 0

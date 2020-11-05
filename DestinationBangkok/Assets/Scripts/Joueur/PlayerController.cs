@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
   public float monDelai = 1.5f;
   public bool estMort = false;
 
+  public GameObject groupFeu;
+  public GameObject groupPoison;
+  public GameObject groupPerfo;
+
 
   void Start()
   {
@@ -34,13 +38,13 @@ public class PlayerController : MonoBehaviour
 
   void Update()
   {
-        if (estMort == false)
-        {
-            //Besoin du Update normal, pour le getButtonDown
-            Jump();
-        }
-    
-        if (monDelai > 0) { monDelai -= Time.deltaTime; }
+    if (estMort == false)
+    {
+      //Besoin du Update normal, pour le getButtonDown
+      Jump();
+    }
+
+    if (monDelai > 0) { monDelai -= Time.deltaTime; }
   }
 
   public float longueurRaycast;
@@ -48,15 +52,15 @@ public class PlayerController : MonoBehaviour
   public RaycastHit infoDecal;
   private void FixedUpdate()
   {
-        if (estMort == false)
-        {
-            Movement();
-        }
-        else
-        {
-            playerRB.velocity = Vector3.zero;
-        }
-    
+    if (estMort == false)
+    {
+      Movement();
+    }
+    else
+    {
+      playerRB.velocity = Vector3.zero;
+    }
+
 
     //Raycast pour savoir si le joueur est proche du sol
     if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
@@ -233,40 +237,74 @@ public class PlayerController : MonoBehaviour
       switch (typePiege)
       {
         case "Flamme":
-          //Applique leffet Flamme (brûlé)
-          refGestionStatus.listeCompteStatus["Flamme"]++;
-          print(refGestionStatus.listeCompteStatus["Flamme"]);
-          refGestionStatus.MettreAJourTexteFeu();
-          // ajouter delai ici
-
-          if (refGestionStatus.listeCompteStatus["Flamme"] == 3)
+          if (refGestionStatus.listeCompteStatus["Flamme"] < 3)
           {
-                //Démarrer Séquence de mort
-                SequenceDeMort();
-          }
-          break;
+            //Applique leffet Flamme (brûlé)
+            refGestionStatus.listeCompteStatus["Flamme"]++;
+            refGestionStatus.MettreAJourTexteFeu();
 
-        case "Perforation":
-          //Applique leffet perforation (saignements)
-          refGestionStatus.listeCompteStatus["Perforation"]++;
-          print(refGestionStatus.listeCompteStatus["Perforation"]);
-          refGestionStatus.MettreAJourTexteFeu();
-          if (refGestionStatus.listeCompteStatus["Perforation"] == 3)
-          {
-                //Démarrer Séquence de mort
-                SequenceDeMort();
+            if (refGestionStatus.listeCompteStatus["Flamme"] == 0)
+            {
+              groupFeu.SetActive(false);
+            }
+            else
+            {
+              groupFeu.SetActive(true);
+            }
+
+            if (refGestionStatus.listeCompteStatus["Flamme"] == 3)
+            {
+              //Démarrer Séquence de mort
+              SequenceDeMort();
+            }
           }
           break;
 
         case "Poison":
-          //Applique leffet poison (empoisonné)
-          refGestionStatus.listeCompteStatus["Poison"]++;
-          print(refGestionStatus.listeCompteStatus["Poison"]);
-          refGestionStatus.MettreAJourTexteFeu();
-          if (refGestionStatus.listeCompteStatus["Poison"] == 3)
+          if (refGestionStatus.listeCompteStatus["Poison"] < 3)
           {
-                //Démarrer Séquence de mort
-                SequenceDeMort();
+            //Applique leffet poison (empoisonné)
+            refGestionStatus.listeCompteStatus["Poison"]++;
+            refGestionStatus.MettreAJourTexteFeu();
+
+            if (refGestionStatus.listeCompteStatus["Poison"] == 0)
+            {
+              groupPoison.SetActive(false);
+            }
+            else
+            {
+              groupPoison.SetActive(true);
+            }
+
+            if (refGestionStatus.listeCompteStatus["Poison"] == 3)
+            {
+              //Démarrer Séquence de mort
+              SequenceDeMort();
+            }
+          }
+          break;
+
+        case "Perforation":
+          if (refGestionStatus.listeCompteStatus["Perforation"] < 3)
+          {
+            //Applique leffet perforation (saignements)
+            refGestionStatus.listeCompteStatus["Perforation"]++;
+            refGestionStatus.MettreAJourTexteFeu();
+
+            if (refGestionStatus.listeCompteStatus["Perforation"] == 0)
+            {
+              groupPerfo.SetActive(false);
+            }
+            else
+            {
+              groupPerfo.SetActive(true);
+            }
+
+            if (refGestionStatus.listeCompteStatus["Perforation"] == 3)
+            {
+              //Démarrer Séquence de mort
+              SequenceDeMort();
+            }
           }
           break;
         default:
@@ -274,19 +312,18 @@ public class PlayerController : MonoBehaviour
       }
       monDelai = 1.5f;
     }
-    print(typePiege);
   }
 
   void SequenceDeMort()
   {
-        //Désactiver l
-        estMort = true;
-        //Animation de mort du joueur
-        playerAnim.SetBool("estMort", estMort);
+    //Désactiver l
+    estMort = true;
+    //Animation de mort du joueur
+    playerAnim.SetBool("estMort", estMort);
 
-        //Changement de cam et animation de cam
+    //Changement de cam et animation de cam
 
-        //Animation de l'effet vignette (post-processing)
+    //Animation de l'effet vignette (post-processing)
   }
 
 
