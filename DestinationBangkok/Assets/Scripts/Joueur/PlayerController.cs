@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Auteurs : Raph, Hao et François
 public class PlayerController : MonoBehaviour
 {
   public Rigidbody playerRB;
@@ -233,7 +234,8 @@ public class PlayerController : MonoBehaviour
 
           if (refGestionStatus.listeCompteStatus["Flamme"] == 3)
           {
-            print("il est mort");
+                //Démarrer Séquence de mort
+                SequenceDeMort();
           }
           break;
 
@@ -244,7 +246,8 @@ public class PlayerController : MonoBehaviour
           refGestionStatus.MettreAJourTexteFeu();
           if (refGestionStatus.listeCompteStatus["Perforation"] == 3)
           {
-            print("il est mort 2");
+                //Démarrer Séquence de mort
+                SequenceDeMort();
           }
           break;
 
@@ -255,7 +258,8 @@ public class PlayerController : MonoBehaviour
           refGestionStatus.MettreAJourTexteFeu();
           if (refGestionStatus.listeCompteStatus["Poison"] == 3)
           {
-            print("il est mort 3");
+                //Démarrer Séquence de mort
+                SequenceDeMort();
           }
           break;
         default:
@@ -264,6 +268,16 @@ public class PlayerController : MonoBehaviour
       monDelai = 1.5f;
     }
     print(typePiege);
+  }
+
+  void SequenceDeMort()
+  {     
+        //Animation de mort du joueur
+        playerAnim.SetBool("estMort", true);
+
+        //Changement de cam et animation de cam
+
+        //Animation de l'effet vignette (post-processing)
   }
 
 
