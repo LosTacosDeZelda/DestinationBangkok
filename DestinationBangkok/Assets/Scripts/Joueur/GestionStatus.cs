@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GestionStatus : MonoBehaviour
 {
 
 
-  public Text texteFeu;
-  public Text textePerfo;
-  public Text textePoison;
+  public TextMeshProUGUI texteFeu;
+  public TextMeshProUGUI textePerfo;
+  public TextMeshProUGUI textePoison;
   public Dictionary<string, int> listeCompteStatus;
 
   // Start is called before the first frame update
@@ -17,16 +18,16 @@ public class GestionStatus : MonoBehaviour
   {
     listeCompteStatus = new Dictionary<string, int>() {
             {"Flamme", 0} ,
-            {"Perforation", 0} ,
             {"Poison", 0} ,
+            {"Perforation", 0} ,
         };
   }
 
   public void MettreAJourTexteFeu()
   {
-    texteFeu.text = $"{listeCompteStatus["Flamme"]} / 3 Feu";
-    textePerfo.text = $"{listeCompteStatus["Perforation"]} / 3 Perforation";
-    textePoison.text = $"{listeCompteStatus["Poison"]} / 3 Poison";
+    texteFeu.text = $"{listeCompteStatus["Flamme"]}";
+    textePoison.text = $"{listeCompteStatus["Poison"]}";
+    textePerfo.text = $"{listeCompteStatus["Perforation"]}";
   }
 
 }
