@@ -2011,6 +2011,8 @@ MonoBehaviour:
   camPivot: {fileID: 0}
   marcheSol: {fileID: 0}
   marche: {fileID: 0}
+  atterirSol: {fileID: 0}
+  atterir: {fileID: 0}
   presDuSol: 0
   longueurRaycast: 2
   vitesseDeChute: 500

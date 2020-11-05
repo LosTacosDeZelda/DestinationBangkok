@@ -698,7 +698,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh39254
+  m_Name: pb_Mesh17958
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7603,7 +7603,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17266
+  m_Name: pb_Mesh17880
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23365,6 +23365,21 @@ PrefabInstance:
       propertyPath: camPivot
       value: 
       objectReference: {fileID: 1048909342}
+    - target: {fileID: 9022132004690951717, guid: 2d762227db9476541928aca9356d5537,
+        type: 3}
+      propertyPath: marche
+      value: 
+      objectReference: {fileID: 8300000, guid: 214ed77973006c04393aafdedb3940f7, type: 3}
+    - target: {fileID: 9022132004690951717, guid: 2d762227db9476541928aca9356d5537,
+        type: 3}
+      propertyPath: atterir
+      value: 
+      objectReference: {fileID: 8300000, guid: f30ae60b9cf33e54ca168a1b85635c02, type: 3}
+    - target: {fileID: 9022132004690951717, guid: 2d762227db9476541928aca9356d5537,
+        type: 3}
+      propertyPath: marcheSol
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d762227db9476541928aca9356d5537, type: 3}
 --- !u!1 &7098687740775214548

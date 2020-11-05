@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public AudioSource marcheSol;
     public AudioClip marche;
 
+    public AudioSource atterirSol;
+    public AudioClip atterir;
+
     [Header("Gestion du Saut")]
     public bool presDuSol;
 
@@ -23,6 +26,7 @@ public class PlayerController : MonoBehaviour
         playerRB = gameObject.GetComponent<Rigidbody>();
 
         marcheSol = GetComponent<AudioSource>();
+        atterirSol = GetComponent<AudioSource>();
     }
 
   
@@ -30,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         //Besoin du Update normal, pour le getButtonDown
         Jump();
+        //sonMarche();
         /*if (playerAnim.GetBool("court") == true)
         {
             marcheSol.PlayOneShot(marche);
@@ -41,19 +46,16 @@ public class PlayerController : MonoBehaviour
     public RaycastHit infoDecal;
     private void FixedUpdate()
     {
-        
-        Movement();
+        Mouvement();
 
         //Raycast pour savoir si le joueur est proche du sol
         if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
         {
-
             presDuSol = true;
             if (playerAnim.GetBool("presDuSol") == false && !isGrounded && playerRB.velocity.y < 0)
             {
                 playerAnim.SetBool("presDuSol", true);
             }
-
         }
         else
         {
@@ -64,10 +66,7 @@ public class PlayerController : MonoBehaviour
         {
 
         }
-
         Debug.DrawLine(transform.position, transform.position + (Vector3.down * 100), Color.red);
-
-
     }
 
  
@@ -81,7 +80,7 @@ public class PlayerController : MonoBehaviour
      * 
      */
     Vector3 moveDirection;
-    private void Movement()
+    private void Mouvement()
     {
 
         if (playerRB.velocity.y < 5)
@@ -116,21 +115,23 @@ public class PlayerController : MonoBehaviour
         {
             persoAngleY = Mathf.Rad2Deg * Mathf.Atan2(playerRB.velocity.x, playerRB.velocity.z);
            
-
             playerRB.rotation = Quaternion.Euler(0, persoAngleY, 0);
 
             playerAnim.SetBool("court", true);
 
-            marcheSol.PlayOneShot(marche, 0.7F);
-           
+            // marcheSol.PlayOneShot(marche, 0.7F);
         }
 
         //Animation de course accélère progressivement
         playerAnim.SetFloat("multiplicateurVitesse", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
+    }
 
-
-       
-
+    private void sonMarche()
+    {
+        //if (playerAnim.GetBool("court") == true)
+        //{
+            marcheSol.PlayOneShot(marche, 1f);
+        //}
     }
 
     public float vitesseDeChute;
@@ -163,19 +164,12 @@ public class PlayerController : MonoBehaviour
                 playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
 
                 playerAnim.SetTrigger("saute");
-
-
             }
         }
         else
         {
             playerRB.AddForce(new Vector3(0, -vitesseDeChute * Time.deltaTime, 0));
         }
-
-        
-
-        
-        
     }
 
 
@@ -189,12 +183,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             
             playerVelocityMod = new Vector3(10, 0, 10);
-
-            
-            
-
         }
-       
     }
     
 
@@ -206,9 +195,6 @@ public class PlayerController : MonoBehaviour
             //Ne touche plus le sol (ne peut pas sauter)
             isGrounded = false;
             playerVelocityMod = new Vector3(6, 0, 6);
-
-            
-
         }
     }
 
@@ -232,7 +218,4 @@ public class PlayerController : MonoBehaviour
         }
         print(typePiege);
     }
-
-
-    
 }
