@@ -370,9 +370,9 @@ public class Piege : MonoBehaviour
             yield return new WaitForSeconds(délaiInstance);
         }
 
-        GameObject instance = Instantiate(objetAInstancier, pointDapparition.transform.position, Quaternion.identity);
+        GameObject instance = Instantiate(objetAInstancier, pointDapparition.transform.position, transform.rotation);
         instance.GetComponent<Projectile>().typePiegeStr = typePiege.ToString();
-        instance.transform.rotation = Quaternion.Euler(rotationInstance);
+        //instance.transform.rotation = Quaternion.Euler(rotationInstance);
         instance.GetComponent<Rigidbody>().velocity = axeTransform * vélocitéInstance;
 
         //Appeler la fonction pour détruire l'instance dans un certain temps

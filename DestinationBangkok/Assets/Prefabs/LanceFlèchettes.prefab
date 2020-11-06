@@ -139,13 +139,14 @@ MonoBehaviour:
   "Instancier\xC9l\xE9ment": 1
   objetAInstancier: {fileID: 2943991297890561958, guid: 19e966b99287ddc4db5de9977564dc7a,
     type: 3}
-  "v\xE9locit\xE9Instance": 5
+  "v\xE9locit\xE9Instance": 10
   "d\xE9laiInstance": 0
   intervalleInstance: 2
   "d\xE9laiDestruction": 5
   pointDapparition: {fileID: 8618266613184411489}
-  instanceRotHorizontale: 50
+  instanceRotHorizontale: 0
   axeAvant: 0
+  rotationInstance: {x: 0, y: 0, z: 0}
 --- !u!1 &8618266613184411489
 GameObject:
   m_ObjectHideFlags: 0
