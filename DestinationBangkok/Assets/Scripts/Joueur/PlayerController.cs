@@ -128,10 +128,12 @@ public class PlayerController : MonoBehaviour
 
     public void sonMarche()
     {
-        //if (playerAnim.GetBool("court") == true)
-        //{
             marcheSol.PlayOneShot(marche);
-        //}
+    }
+
+    public void sonAtterir()
+    {
+        atterirSol.PlayOneShot(atterir);
     }
 
     public float vitesseDeChute;
