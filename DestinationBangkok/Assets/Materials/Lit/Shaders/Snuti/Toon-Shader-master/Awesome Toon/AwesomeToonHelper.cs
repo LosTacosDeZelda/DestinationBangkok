@@ -81,10 +81,14 @@ namespace AwesomeToon {
 
             // Initialise new lights
             foreach (Light light in lights) {
-                int id = light.GetInstanceID();
-                newIds.Add(id);
-                if (!lightSets.ContainsKey(id)) {
-                    lightSets.Add(id, new LightSet(light));
+                if (light.tag != "DirectionalLight")
+                {
+                    int id = light.GetInstanceID();
+                    newIds.Add(id);
+                    if (!lightSets.ContainsKey(id))
+                    {
+                        lightSets.Add(id, new LightSet(light));
+                    }
                 }
             }
 
