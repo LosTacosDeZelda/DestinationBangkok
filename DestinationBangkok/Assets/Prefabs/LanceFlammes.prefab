@@ -4773,21 +4773,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6284084354580854691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eec2c0046a56204c9e63d082be0b403, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a7d892ef9f933f4680f935b2d3f51d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   typePiege: 0
   typesDeMouvement: 1
   objetMouvementEstParent: 1
   axesRotation: 1
-  limiterRotation: 1
+  limiterRotation: 0
   vitesseRotationUnAxe: 2
   angleMax: 70.497
   angleMin: -70.31751
-  axesTranslation: 2
-  vitesseTranslationUnAxe: 2
-  posMax: 0.8333563
-  posMin: -0.7644071
+  axesTranslation: 0
+  vitesseTranslationUnAxe: 0
+  posMax: 0
+  posMin: 0
   "Instancier\xC9l\xE9ment": 0
   objetAInstancier: {fileID: 0}
   "v\xE9locit\xE9Instance": 0
@@ -4797,6 +4797,7 @@ MonoBehaviour:
   pointDapparition: {fileID: 0}
   instanceRotHorizontale: 0
   axeAvant: 0
+  rotationInstance: {x: 0, y: 0, z: 0}
 --- !u!1 &6294725784808061582
 GameObject:
   m_ObjectHideFlags: 0
