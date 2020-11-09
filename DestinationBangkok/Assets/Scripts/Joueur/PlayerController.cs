@@ -2,222 +2,330 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Auteurs : Raph, Hao et François
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody playerRB;
-    public Animator playerAnim;
+  public Rigidbody playerRB;
+  public Animator playerAnim;
 
-    public GameObject camPivot;
+  public GameObject camPivot;
 
-    public AudioSource marcheSol;
-    public AudioClip marche;
+  public AudioSource marcheSol;
+  public AudioSource atterrirSol;
+  public AudioClip marche;
 
-    public AudioSource atterirSol;
-    public AudioClip atterir;
+  [Header("Gestion du Saut")]
+  public bool closeToGround;
 
-    [Header("Gestion du Saut")]
-    public bool presDuSol;
+  public GestionStatus refGestionStatus;
 
-    
-    void Start()
+  public float monDelai = 1.5f;
+  public bool estMort = false;
+
+  public GameObject groupFeu;
+  public GameObject groupPoison;
+  public GameObject groupPerfo;
+
+
+  void Start()
+  {
+
+    playerAnim = gameObject.GetComponent<Animator>();
+    playerRB = gameObject.GetComponent<Rigidbody>();
+
+    marcheSol = GetComponent<AudioSource>();
+    atterrirSol = GetComponent<AudioSource>();
+  }
+
+
+  void Update()
+  {
+    if (estMort == false)
     {
-
-        playerAnim = gameObject.GetComponent<Animator>();
-        playerRB = gameObject.GetComponent<Rigidbody>();
-
-        marcheSol = GetComponent<AudioSource>();
-        atterirSol = GetComponent<AudioSource>();
+      //Besoin du Update normal, pour le getButtonDown
+      Jump();
     }
 
-  
-    void Update()
+    if (monDelai > 0) { monDelai -= Time.deltaTime; }
+  }
+
+       
+  public float longueurRaycast;
+  public RaycastHit solPres;
+  public RaycastHit infoDecal;
+  private void FixedUpdate()
+  {
+    if (estMort == false)
     {
-        //Besoin du Update normal, pour le getButtonDown
-        Jump();
-        //sonMarche();
-        /*if (playerAnim.GetBool("court") == true)
-        {
-            marcheSol.PlayOneShot(marche);
-        }*/
+      Movement();
+    }
+    else
+    {
+      playerRB.velocity = Vector3.zero;
     }
 
-    public float longueurRaycast;
-    public RaycastHit solPres;
-    public RaycastHit infoDecal;
-    private void FixedUpdate()
-    {
-        Mouvement();
 
-        //Raycast pour savoir si le joueur est proche du sol
-        if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
-        {
-            presDuSol = true;
-            if (playerAnim.GetBool("presDuSol") == false && !isGrounded && playerRB.velocity.y < 0)
-            {
-                playerAnim.SetBool("presDuSol", true);
-            }
-        }
-        else
-        {
-            presDuSol = false;
-        }
-
-        if (Physics.Raycast(transform.position, Vector3.down, out infoDecal, 100))
-        {
-
-        }
-        Debug.DrawLine(transform.position, transform.position + (Vector3.down * 100), Color.red);
-    }
-
- 
-
-    [Header("Mouvement du Joueur")]
-    Vector3 playerVelocityMod;
-    float persoAngleY = 0;
-
-    /**
-     * 
-     * 
-     */
-    Vector3 moveDirection;
-    private void Mouvement()
+    //Raycast pour savoir si le joueur est proche du sol
+    if (Physics.Raycast(transform.position, Vector3.down, out solPres, longueurRaycast))
     {
 
-        if (playerRB.velocity.y < 5)
-        {
-            if (playerAnim.GetBool("tombe") == false)
-            {
-                playerAnim.SetBool("tombe", true);
-            }
+      closeToGround = true;
+      if (playerAnim.GetBool("procheDuSol") == false && !isGrounded && playerRB.velocity.y < 0)
+      {
+        playerAnim.SetBool("procheDuSol", true);
+      }
 
-        }
-
-        //En gros, on veut ignorer la rotation en X pour la direction du mouvement du joueur
-        Transform dirCam = camPivot.transform;
-        dirCam.rotation = Quaternion.Euler(0, camPivot.transform.eulerAngles.y, camPivot.transform.eulerAngles.z);
-
-        //dirCam.rotation = rotCam;
-
-        //Wooow le calcul qui me pete le cerveau
-        moveDirection = (Input.GetAxis("Vertical") * dirCam.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * dirCam.transform.right * playerVelocityMod.x);
-
-        var newVelocity = playerRB.velocity;
-        newVelocity.x = moveDirection.x;
-        newVelocity.z = moveDirection.z;
-
-        playerRB.velocity = newVelocity;
-
-        if (playerRB.velocity.x == 0 && playerRB.velocity.z == 0)
-        {
-            playerAnim.SetBool("court", false);
-        }
-        else
-        {
-            persoAngleY = Mathf.Rad2Deg * Mathf.Atan2(playerRB.velocity.x, playerRB.velocity.z);
-           
-            playerRB.rotation = Quaternion.Euler(0, persoAngleY, 0);
-
-            playerAnim.SetBool("court", true);
-
-            // marcheSol.PlayOneShot(marche, 0.7F);
-        }
-
-        //Animation de course accélère progressivement
-        playerAnim.SetFloat("multiplicateurVitesse", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
     }
-
-    public void sonMarche()
-    {
-            marcheSol.PlayOneShot(marche);
-    }
-
-    public void sonAtterir()
-    {
-        atterirSol.PlayOneShot(atterir);
-    }
-
-    public float vitesseDeChute;
-    //public float vitesseDeChuteMax;
-    public bool isGrounded;
-    public float jumpPower;
-    /**
-    * Fonction gérant le saut : force du saut, input et quand est-ce que l'on peut sauter
-    * 
-    */
-
-    void Jump()
+    else
     {
         
+      closeToGround = false;
+    }
 
-        if (isGrounded)
-        {
 
-           
-            playerAnim.SetBool("tombe", false);
-            playerAnim.SetBool("presDuSol", false);
+    Debug.DrawLine(transform.position, transform.position + (Vector3.down * 100), Color.red);
 
-            //Peut sauter
-            //Saut
-            if (Input.GetButtonDown("Jump"))
+
+  }
+
+
+
+  [Header("Mouvement du Joueur")]
+  Vector3 playerVelocityMod;
+  float persoAngleY = 0;
+
+  /**
+   * 
+   * 
+   */
+  Vector3 moveDirection;
+  private void Movement()
+  {
+
+    if (playerRB.velocity.y < 5)
+    {
+      if (playerAnim.GetBool("tombe") == false)
+      {
+        playerAnim.SetBool("tombe", true);
+      }
+
+    }
+
+
+    //En gros, on veut ignorer la rotation en X pour la direction du mouvement du joueur
+    Transform dirCam = camPivot.transform;
+    dirCam.rotation = Quaternion.Euler(0, camPivot.transform.eulerAngles.y, camPivot.transform.eulerAngles.z);
+
+
+    //Wooow le calcul qui me pete le cerveau
+    moveDirection = (Input.GetAxis("Vertical") * dirCam.transform.forward * playerVelocityMod.z) + (Input.GetAxis("Horizontal") * dirCam.transform.right * playerVelocityMod.x);
+
+    var newVelocity = playerRB.velocity;
+    newVelocity.x = moveDirection.x;
+    newVelocity.z = moveDirection.z;
+
+    playerRB.velocity = newVelocity;
+
+    if (playerRB.velocity.x == 0 && playerRB.velocity.z == 0)
+    {
+      playerAnim.SetBool("court", false);
+    }
+    else
+    {
+      persoAngleY = Mathf.Rad2Deg * Mathf.Atan2(playerRB.velocity.x, playerRB.velocity.z);
+
+
+      playerRB.rotation = Quaternion.Euler(0, persoAngleY, 0);
+
+      playerAnim.SetBool("court", true);
+
+      marcheSol.PlayOneShot(marche, 0.7F);
+
+    }
+
+    //Animation de course accélère progressivement
+    playerAnim.SetFloat("multiplicateurVitesse", Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
+
+
+
+
+  }
+
+  public float vitesseDeChute;
+  //public float vitesseDeChuteMax;
+  public bool isGrounded;
+  public float jumpPower;
+  /**
+  * Fonction gérant le saut : force du saut, input et quand est-ce que l'on peut sauter
+  * 
+  */
+
+  void Jump()
+  {
+
+
+    if (isGrounded)
+    {
+
+
+      playerAnim.SetBool("tombe", false);
+      playerAnim.SetBool("procheDuSol", false);
+
+      //Peut sauter
+      //Saut
+      if (Input.GetButtonDown("Jump"))
+      {
+        print("pressed A");
+
+
+        playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
+
+        playerAnim.SetTrigger("saute");
+
+
+      }
+    }
+    else
+    {
+      playerRB.AddForce(new Vector3(0, -vitesseDeChute * Time.deltaTime, 0));
+    }
+
+
+
+
+
+  }
+
+
+  private void OnTriggerEnter(Collider colEnter)
+  {
+
+    if (colEnter.gameObject.tag == "Sol")
+    {
+      // La couche #8 est le sol
+      //Touche le sol (peut sauter)
+      isGrounded = true;
+
+      playerVelocityMod = new Vector3(10, 0, 10);
+
+
+
+
+    }
+
+  }
+
+
+  private void OnTriggerExit(Collider colExit)
+  {
+    if (colExit.gameObject.tag == "Sol")
+    {
+      // La couche #8 est le sol
+      //Ne touche plus le sol (ne peut pas sauter)
+      isGrounded = false;
+      playerVelocityMod = new Vector3(6, 0, 6);
+
+
+
+    }
+  }
+
+  public void JoueurBlesse(string typePiege)
+  {
+    if (monDelai <= 0)
+    {
+      switch (typePiege)
+      {
+        case "Flamme":
+          if (refGestionStatus.listeCompteStatus["Flamme"] < 3)
+          {
+            //Applique leffet Flamme (brûlé)
+            refGestionStatus.listeCompteStatus["Flamme"]++;
+            refGestionStatus.MettreAJourTexteFeu();
+
+            if (refGestionStatus.listeCompteStatus["Flamme"] == 0)
             {
-                print("pressed A");
-
-                
-                playerRB.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
-
-                playerAnim.SetTrigger("saute");
+              groupFeu.SetActive(false);
             }
-        }
-        else
-        {
-            playerRB.AddForce(new Vector3(0, -vitesseDeChute * Time.deltaTime, 0));
-        }
+            else
+            {
+              groupFeu.SetActive(true);
+            }
+
+            if (refGestionStatus.listeCompteStatus["Flamme"] == 3)
+            {
+              //Démarrer Séquence de mort
+              SequenceDeMort();
+            }
+          }
+          break;
+
+        case "Poison":
+          if (refGestionStatus.listeCompteStatus["Poison"] < 3)
+          {
+            //Applique leffet poison (empoisonné)
+            refGestionStatus.listeCompteStatus["Poison"]++;
+            refGestionStatus.MettreAJourTexteFeu();
+
+            if (refGestionStatus.listeCompteStatus["Poison"] == 0)
+            {
+              groupPoison.SetActive(false);
+            }
+            else
+            {
+              groupPoison.SetActive(true);
+            }
+
+            if (refGestionStatus.listeCompteStatus["Poison"] == 3)
+            {
+              //Démarrer Séquence de mort
+              SequenceDeMort();
+            }
+          }
+          break;
+
+        case "Perforation":
+          if (refGestionStatus.listeCompteStatus["Perforation"] < 3)
+          {
+            //Applique leffet perforation (saignements)
+            refGestionStatus.listeCompteStatus["Perforation"]++;
+            refGestionStatus.MettreAJourTexteFeu();
+
+            if (refGestionStatus.listeCompteStatus["Perforation"] == 0)
+            {
+              groupPerfo.SetActive(false);
+            }
+            else
+            {
+              groupPerfo.SetActive(true);
+            }
+
+            if (refGestionStatus.listeCompteStatus["Perforation"] == 3)
+            {
+              //Démarrer Séquence de mort
+              SequenceDeMort();
+            }
+          }
+          break;
+        default:
+          break;
+      }
+      monDelai = 1.5f;
     }
+  }
+
+  void SequenceDeMort()
+  {
+    //Désactiver l
+    estMort = true;
+    //Animation de mort du joueur
+    playerAnim.SetBool("estMort", estMort);
+
+    //Changement de cam et animation de cam
+
+    //Animation de l'effet vignette (post-processing)
+  }
 
 
-    private void OnTriggerEnter(Collider colEnter)
-    {
-       
-        if (colEnter.gameObject.tag == "Sol")
-        {
-            // La couche #8 est le sol
-            //Touche le sol (peut sauter)
-            isGrounded = true;
-            
-            playerVelocityMod = new Vector3(10, 0, 10);
-        }
-    }
-    
 
-    private void OnTriggerExit(Collider colExit)
-    {
-        if (colExit.gameObject.tag == "Sol")
-        {
-            // La couche #8 est le sol
-            //Ne touche plus le sol (ne peut pas sauter)
-            isGrounded = false;
-            playerVelocityMod = new Vector3(6, 0, 6);
-        }
-    }
-
-    public void JoueurBlesse(string typePiege)
-    {
-        switch (typePiege)
-        {
-            case "Flamme":
-                //Applique leffet Flamme (brûlé)
-                break;
-
-            case "Perforation" :
-                //Applique leffet perforation (saignements)
-                break;
-
-            case "Poison":
-                //Applique leffet poison (empoisonné)
-                break;
-            default:
-                break;
-        }
-        print(typePiege);
-    }
 }

@@ -20,17 +20,22 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_399C1DE2:
+        m_Texture: {fileID: 2800000, guid: ab921bcf666a3514d9c342b0b2134895, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_97C8EC94:
         m_Texture: {fileID: 2800000, guid: d595cc24d1022c04da7a458f5ee920d2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_DB342F0C:
-        m_Texture: {fileID: 2800000, guid: ab921bcf666a3514d9c342b0b2134895, type: 3}
+        m_Texture: {fileID: 2800000, guid: dc768902f95a0514da4aac3241697776, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_1DEF9DF4: 20
     - Vector1_3C3B6420: -1
+    - Vector1_63B5137F: 0
     - Vector1_9605CCA4: 10
     m_Colors:
     - Color_6A162E48: {r: 1, g: 1, b: 1, a: 1}
@@ -38,14 +43,14 @@ Material:
     - Color_9A9462B: {r: 0, g: 0, b: 0, a: 1}
     - Color_D2A04608: {r: 1, g: 1, b: 1, a: 0}
     - Color_D840FCE7: {r: 1, g: 1, b: 1, a: 0}
-    - _L1_color: {r: 0.0060702036, g: 0.0042863786, b: 0.0019756795, a: 0.01}
-    - _L1_dir: {r: -0.9608957, g: 0.09730602, b: 0.25925088, a: 0}
-    - _L2_color: {r: 0, g: 0, b: 0, a: 1}
-    - _L2_dir: {r: 0, g: 1, b: 0, a: 0}
-    - _L3_color: {r: 0, g: 0, b: 0, a: 1}
-    - _L3_dir: {r: 0, g: 1, b: 0, a: 0}
-    - _L4_color: {r: 0, g: 0, b: 0, a: 1}
-    - _L4_dir: {r: 0, g: 1, b: 0, a: 0}
+    - _L1_color: {r: 0.18262358, g: 0.12895678, b: 0.059438806, a: 0.26301765}
+    - _L1_dir: {r: -0.58855045, g: 0.34382346, b: -0.731706, a: 0}
+    - _L2_color: {r: 0.12800126, g: 0.090386085, b: 0.041660786, a: 0.18434964}
+    - _L2_dir: {r: -0.5324824, g: 0.21274863, b: 0.8192683, a: 0}
+    - _L3_color: {r: 0.08520668, g: 0.060167354, b: 0.027732361, a: 0.12271614}
+    - _L3_dir: {r: -0.35263485, g: 0.20938082, b: -0.9120353, a: 0}
+    - _L4_color: {r: 0.07583822, g: 0.053551972, b: 0.024683196, a: 0.10922353}
+    - _L4_dir: {r: 0.77626634, g: 0.3139841, b: -0.54664844, a: 0}
     - _L5_color: {r: 0, g: 0, b: 0, a: 1}
     - _L5_dir: {r: 0, g: 1, b: 0, a: 0}
     - _L6_color: {r: 0, g: 0, b: 0, a: 1}

@@ -65,6 +65,36 @@ Transform:
   m_Father: {fileID: 8691725149051966307}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2067672884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2067672885}
+  m_Layer: 2
+  m_Name: effetStatus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2067672885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067672884}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.07, y: 1.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5435374817058458673}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &533258827174548871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,6 +1951,7 @@ GameObject:
   - component: {fileID: 9022132004690951716}
   - component: {fileID: 2730403311873892683}
   - component: {fileID: 9022132004690951717}
+  - component: {fileID: 2510163256752999364}
   m_Layer: 2
   m_Name: Manu
   m_TagString: Player
@@ -1942,6 +1973,7 @@ Transform:
   - {fileID: 4488723976586461367}
   - {fileID: 5518183292432297655}
   - {fileID: 6908778493433787915}
+  - {fileID: 2067672885}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1986,7 +2018,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 977002e3bd2df324faad2ca5d4291af8, type: 3}
   m_Controller: {fileID: 9100000, guid: 535d24752e3d6444da644e79e90ec2ca, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -2011,10 +2043,29 @@ MonoBehaviour:
   camPivot: {fileID: 0}
   marcheSol: {fileID: 0}
   marche: {fileID: 0}
-  atterirSol: {fileID: 0}
-  atterir: {fileID: 0}
-  presDuSol: 0
+  closeToGround: 0
+  refGestionStatus: {fileID: 2510163256752999364}
+  monDelai: 1.5
+  estMort: 0
+  groupFeu: {fileID: 0}
+  groupPoison: {fileID: 0}
+  groupPerfo: {fileID: 0}
   longueurRaycast: 2
   vitesseDeChute: 500
   isGrounded: 0
   jumpPower: 8
+--- !u!114 &2510163256752999364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9022132004690951714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a09092a7e9f3644a9fcef3c9a423646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texteFeu: {fileID: 0}
+  textePerfo: {fileID: 0}
+  textePoison: {fileID: 0}
