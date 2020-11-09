@@ -98,7 +98,6 @@ public class PiegeEditor : Editor
     {
 
         EditorGUILayout.PropertyField(objetMouvementEstParentProp, new GUIContent("Mouvement sur le parent ?"));
-
         EditorGUILayout.PropertyField(typePiegeProp, new GUIContent("Type de Piège"));
         EditorGUILayout.PropertyField(typesDeMouvementProp, new GUIContent("Types de Mouvement"));
 
