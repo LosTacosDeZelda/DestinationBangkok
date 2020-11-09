@@ -13371,8 +13371,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0
-    functionName: sonAtterir
+  - time: 0.7
+    functionName: sonAtterrir
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

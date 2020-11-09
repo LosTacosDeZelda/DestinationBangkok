@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
 
   public GameObject camPivot;
 
-  public AudioSource marcheSol;
-  public AudioSource atterrirSol;
+  public AudioSource joueurAudio;
+  public AudioClip atterrirSol;
   public AudioClip marche;
 
   [Header("Gestion du Saut")]
@@ -32,9 +32,8 @@ public class PlayerController : MonoBehaviour
 
     playerAnim = gameObject.GetComponent<Animator>();
     playerRB = gameObject.GetComponent<Rigidbody>();
-
-    marcheSol = GetComponent<AudioSource>();
-    atterrirSol = GetComponent<AudioSource>();
+    
+    joueurAudio = GetComponent<AudioSource>();
   }
 
 
@@ -139,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
       playerAnim.SetBool("court", true);
 
-      marcheSol.PlayOneShot(marche, 0.7F);
+     
 
     }
 
@@ -325,6 +324,16 @@ public class PlayerController : MonoBehaviour
 
     //Animation de l'effet vignette (post-processing)
   }
+
+    public void sonMarche()
+    {
+        joueurAudio.PlayOneShot(marche, 0.7F);
+    }
+
+    public void sonAtterrir()
+    {
+        joueurAudio.PlayOneShot(atterrirSol);
+    }
 
 
 

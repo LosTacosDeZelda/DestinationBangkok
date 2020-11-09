@@ -4797,6 +4797,7 @@ MonoBehaviour:
   pointDapparition: {fileID: 0}
   instanceRotHorizontale: 0
   axeAvant: 0
+  rotationInstance: {x: 0, y: 0, z: 0}
 --- !u!1 &6294725784808061582
 GameObject:
   m_ObjectHideFlags: 0
@@ -5013,11 +5014,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 09010d04ab8897345be7a2a56ab44445, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 15b3c0a9b29f1574db8c532775daaef5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5059,7 +5060,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

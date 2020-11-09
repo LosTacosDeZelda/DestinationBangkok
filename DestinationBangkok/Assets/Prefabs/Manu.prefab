@@ -2041,7 +2041,8 @@ MonoBehaviour:
   playerRB: {fileID: 0}
   playerAnim: {fileID: 0}
   camPivot: {fileID: 0}
-  marcheSol: {fileID: 0}
+  joueurAudio: {fileID: 0}
+  atterrirSol: {fileID: 0}
   marche: {fileID: 0}
   closeToGround: 0
   refGestionStatus: {fileID: 2510163256752999364}
