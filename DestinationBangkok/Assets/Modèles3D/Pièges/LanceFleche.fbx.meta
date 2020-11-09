@@ -34,7 +34,11 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
+<<<<<<< HEAD
     globalScale: 1
+=======
+    globalScale: 30
+>>>>>>> master
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -44,7 +48,11 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
+<<<<<<< HEAD
     generateSecondaryUV: 0
+=======
+    generateSecondaryUV: 1
+>>>>>>> master
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -55,9 +63,15 @@ ModelImporter:
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
+<<<<<<< HEAD
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+=======
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 6
+>>>>>>> master
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
@@ -80,7 +94,11 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+<<<<<<< HEAD
     globalScale: 1
+=======
+    globalScale: 30
+>>>>>>> master
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

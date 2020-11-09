@@ -12,7 +12,7 @@ public class GestionScene : MonoBehaviour
 {
     public void sceneJeu()
   {
-    SceneManager.LoadScene("PrototypeNiveau");
+    SceneManager.LoadScene(1);
     print("On change la scene");
   }
 

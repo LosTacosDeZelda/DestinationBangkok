@@ -7,7 +7,6 @@ public class CameraFollow : MonoBehaviour
 
     public float cameraMoveSpeed = 120f;
     public GameObject cameraFollowObject;
-    Vector3 followPosition;
     public float clampAngleMin;
     public float clampAngleMax;
     public float inputSensitivity = 150f;
@@ -20,8 +19,6 @@ public class CameraFollow : MonoBehaviour
     public float mouseY;
     public float finalInputX;
     public float finalInputZ;
-    public float smoothX;
-    public float smoothY;
     float rotY = 0f;
     float rotX = 0f;
 

@@ -9,6 +9,7 @@ TagManager:
   - Sol
   - Ennemis
   - DepartStatue
+  - DirectionalLight
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - 
   - Sol
   - Environnement
-  - 
+  - Toon
   - 
   - 
   - 
